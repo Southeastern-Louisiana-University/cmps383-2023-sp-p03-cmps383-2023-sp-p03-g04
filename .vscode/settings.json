@@ -1,0 +1,43 @@
+{
+    
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "[!S]*/**": true,
+        "S[!P]*/**": true,
+        "SP[!2]*/**": true,
+        "SP2[!3]*/**": true,
+        "SP23[!.]*/**": true,
+        "SP23.[!P]*/**": true,
+        "SP23.P[!0]*/**": true,
+        "SP23.P0[!3]*/**": true,
+        "SP23.P03[!.]*/**": true,
+        "SP23.P03.[!W]*/**": true,
+        "SP23.P03.W[!e]*/**": true,
+        "SP23.P03.We[!b]*/**": true,
+        "SP23.P03.Web/[!C]*/**": true,
+        "SP23.P03.Web/C[!l]*/**": true,
+        "SP23.P03.Web/Cl[!i]*/**": true,
+        "SP23.P03.Web/Cli[!e]*/**": true,
+        "SP23.P03.Web/Clie[!n]*/**": true,
+        "SP23.P03.Web/Clien[!t]*/**": true,
+        "SP23.P03.Web/Client[!A]*/**": true,
+        "SP23.P03.Web/ClientA[!p]*/**": true,
+        "SP23.P03.Web/ClientAp[!p]*/**": true
+    },
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnPaste": false, // required 
+    "editor.formatOnType": false, // required
+    "editor.formatOnSave": true, // optional 
+
+    "editor.formatOnSaveMode": "file", // required to format on save
+    "files.autoSave": "onFocusChange" // optional but recommended
+}
