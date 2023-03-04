@@ -25,7 +25,7 @@ export function useAuth() {
 	return context;
 }
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = useState<User | null>(null);
 
 	useEffect(() => {

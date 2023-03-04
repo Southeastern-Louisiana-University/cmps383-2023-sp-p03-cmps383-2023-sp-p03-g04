@@ -1,26 +1,17 @@
 import React from "react";
-import {
-	Route,
-	RouterProvider,
-	Routes,
-	createBrowserRouter,
-} from "react-router-dom";
 import { HomePage } from "./Pages/Home/HomePage";
 import { Button } from "antd";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([
-	{
-		path: "/home",
-		element: <HomePage />,
-	},
-]);
-
-const App = () => {
-	return (
-		<>
-			<HomePage />
-		</>
-	);
-};
+const App = () => (
+	<>
+		<BrowserRouter>
+			<Routes>
+				<Route element={<HomePage />} path="/home" />
+			</Routes>
+		</BrowserRouter>
+	</>
+);
 
 export default App;
