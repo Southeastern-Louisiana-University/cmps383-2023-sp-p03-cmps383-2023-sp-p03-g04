@@ -1,11 +1,7 @@
 import React from "react";
-import { HomePage } from "./Pages/Home/HomePage";
 import "antd/dist/reset.css";
-import { Button, Layout, theme } from "antd";
-import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { Layout, theme } from "antd";
 import { MenuSider } from "./Components/HomeComponents/MenuSider";
-import { AccountPage } from "./Pages/Account/AccountPage";
 import { Content, Header } from "antd/es/layout/layout";
 
 const App = () => {

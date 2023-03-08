@@ -1,13 +1,12 @@
-import { Layout, Menu, MenuProps, Modal, theme } from "antd";
+import { Menu, MenuProps, Modal } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { Header, Content } from "antd/es/layout/layout";
 import React, { useEffect, useState } from "react";
 import { HomeOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { useAuth } from "../../Authentication/AuthContext";
 import { User } from "../../Data/Types/UserTypes";
 import { LoginForm } from "../Login/LoginForm";
 import { RiTicketLine } from "react-icons/ri";
-import { Navigate, redirect } from "react-router";
+import { redirect } from "react-router";
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(

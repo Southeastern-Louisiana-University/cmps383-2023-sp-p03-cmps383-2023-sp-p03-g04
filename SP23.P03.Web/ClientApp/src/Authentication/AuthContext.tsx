@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { GetUserResponse, User } from "../Data/Types/UserTypes";
+import { User } from "../Data/Types/UserTypes";
 import { getCurrentUser } from "../Data/Queries/UserQueries";
 import { Api } from "../Config";
 
