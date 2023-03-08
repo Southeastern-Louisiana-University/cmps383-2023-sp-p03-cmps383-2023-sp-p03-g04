@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { GetUserResponse, User } from "../Data/Types/UserTypes";
-import { getCurrentUser } from "../Data/Queries/Query";
+import { getCurrentUser } from "../Data/Queries/UserQueries";
 import { Api } from "../Config";
 
 type AuthContextValue = {
@@ -33,12 +33,21 @@ export const AuthProvider = ({ children }: any) => {
 	}, []);
 
 	async function login(username: string, password: string) {
-		const { data, status } = await Api.post<GetUserResponse>(
-			"/authentication/login",
-			{ username, password }
-		);
+		try {
+			const { data, status } = await Api.post<User>(
+				"/authentication/login",
+				{ username, password }
+			);
 
-		if (status === 200) setUser(data.user);
+			if (status === 200) {
+				console.log(data);
+				setUser(data);
+			} else {
+				throw Error;
+			}
+		} catch {
+			throw Error;
+		}
 	}
 
 	async function logout() {

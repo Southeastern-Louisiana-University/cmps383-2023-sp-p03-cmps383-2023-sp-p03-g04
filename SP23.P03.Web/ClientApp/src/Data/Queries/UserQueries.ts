@@ -1,4 +1,5 @@
-import { Api } from './../../Config';
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import { Api } from '../../Config';
 import axios from "axios";
 import { User, GetUserResponse, CreateUserRequest } from "../Types/UserTypes";
 
