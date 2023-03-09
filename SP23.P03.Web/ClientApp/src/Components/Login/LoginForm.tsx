@@ -38,7 +38,7 @@ export const LoginForm = () => {
 	};
 
 	const validateMessages = {
-		required: "${lablel} is required",
+		required: "${label} is required",
 	};
 	const tryLogin = async (values) => {
 		setIsLoading(true);
