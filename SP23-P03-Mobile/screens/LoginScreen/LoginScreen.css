@@ -1,0 +1,8 @@
+
+.flex-box-centered-content-login-screen {
+    display: flex;
+    flex: auto;
+    justify-content: center;
+    margin-top: -8px;
+    background-color: #fdba74;
+  }
