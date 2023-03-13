@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SP23.P03.Web.EmailSender;
 using SP23.P03.Web.Extensions;
 using SP23.P03.Web.Features.Authorization;
 
@@ -13,21 +14,31 @@ public class AuthenticationController : ControllerBase
 {
     private readonly SignInManager<User> signInManager;
     private readonly UserManager<User> userManager;
+    
 
     public AuthenticationController(
         SignInManager<User> signInManager,
         UserManager<User> userManager)
+        
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
     }
+
+    
 
     [HttpGet("me")]
     [Authorize]
     public async Task<ActionResult<UserDto>> Me()
     {
         var username = User.GetCurrentUserName();
-        var resultDto = await GetUserDto(userManager.Users).SingleAsync(x => x.UserName == username);
+        var resultDto = await GetUserDto(userManager.Users).FirstOrDefaultAsync(x => x.UserName == username);
+
+        if (resultDto == null)
+        {
+            return NotFound();
+        }
+
         return Ok(resultDto);
     }
 
@@ -59,6 +70,8 @@ public class AuthenticationController : ControllerBase
         return Ok();
     }
 
+    
+
     private static IQueryable<UserDto> GetUserDto(IQueryable<User> users)
     {
         return users.Select(x => new UserDto
@@ -68,4 +81,5 @@ public class AuthenticationController : ControllerBase
             Roles = x.Roles.Select(y => y.Role!.Name).ToArray()!
         });
     }
+   
 }
