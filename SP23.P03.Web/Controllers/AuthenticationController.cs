@@ -78,6 +78,7 @@ public class AuthenticationController : ControllerBase
         {
             Id = x.Id,
             UserName = x.UserName!,
+            EmailAddress = x.Email!,
             Roles = x.Roles.Select(y => y.Role!.Name).ToArray()!
         });
     }
