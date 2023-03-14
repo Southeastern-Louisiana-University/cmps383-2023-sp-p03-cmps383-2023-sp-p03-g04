@@ -1,6 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using SP23.P03.Web.Data;
+using SP23.P03.Web.EmailSender;
 using SP23.P03.Web.Features.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
 
 builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<DataContext>();
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -28,7 +35,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
+//builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(b => b.AllowedCertificateTypes = CertificateTypes.All);
+
 builder.Services.AddControllers();
+var services = builder.Services;
+services.AddMvc();
+builder.Services.AddScoped<MailSender>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -64,8 +77,10 @@ app.UseStaticFiles();
 app.UseSpa(spaBuilder =>
 {
     spaBuilder.Options.SourcePath = "ClientApp";
+    
     if (app.Environment.IsDevelopment())
     {
+        
         spaBuilder.UseProxyToSpaDevelopmentServer("https://localhost:3000/");
     }
 });

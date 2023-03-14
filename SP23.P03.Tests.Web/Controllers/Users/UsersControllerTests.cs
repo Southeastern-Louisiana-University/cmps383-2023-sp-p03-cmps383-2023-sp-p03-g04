@@ -238,6 +238,7 @@ public class UsersControllerTests
         {
             UserName = Guid.NewGuid().ToString("N"),
             Password = Guid.NewGuid().ToString("N") + "aSd!@#",
+            Email = "Test@test.com",
             Roles = new[] { "User" }
         };
     }
@@ -248,6 +249,7 @@ public class UsersControllerTests
         {
             UserName = Guid.NewGuid().ToString("N"),
             Password = Guid.NewGuid().ToString("N") + "aSd!@#",
+            Email = "Test@Test.com",
             Roles = new[] { "Admin" }
         };
     }
