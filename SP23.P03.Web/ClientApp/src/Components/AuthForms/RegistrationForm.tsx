@@ -46,7 +46,6 @@ export const RegistrationForm = () => {
 				placement: "top",
 				type: "success",
 			});
-			Modal.destroyAll();
 		}
 	};
 
@@ -73,6 +72,7 @@ export const RegistrationForm = () => {
 		lastname: string;
 		address: string;
 		email: string;
+		roles: Array<string>;
 	};
 
 	const tryRegister = async (values) => {
@@ -85,6 +85,7 @@ export const RegistrationForm = () => {
 			lastname: values.lastname,
 			address: values.address,
 			email: values.email,
+			roles: ["User"],
 		};
 		try {
 			setTimeout(async () => {
@@ -92,6 +93,7 @@ export const RegistrationForm = () => {
 				setIsLoading(false);
 				openNotification();
 				setStatus("");
+				Modal.destroyAll();
 			}, 500);
 		} catch (err) {
 			setHasError("error");
@@ -183,7 +185,7 @@ export const RegistrationForm = () => {
 					validateStatus={hasError}
 					status={status}
 				>
-					<Input prefix={<LockOutlined />} />
+					<Input type="password" prefix={<LockOutlined />} />
 				</Form.Item>
 				<Form.Item wrapperCol={{ offset: 8, span: 20 }}>
 					<Button

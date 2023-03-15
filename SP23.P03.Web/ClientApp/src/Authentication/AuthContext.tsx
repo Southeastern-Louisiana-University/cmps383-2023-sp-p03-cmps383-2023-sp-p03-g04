@@ -17,6 +17,7 @@ type Registration = {
 	lastname: string;
 	address: string;
 	email: string;
+	roles: Array<string>;
 };
 
 const AuthContext = createContext<AuthContextValue>({
