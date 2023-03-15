@@ -1,12 +1,16 @@
-import { Menu, MenuProps, Modal } from "antd";
+import { Menu, MenuProps, Modal, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from "react";
 import { HomeOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import { useAuth } from "../../Authentication/AuthContext";
 import { User } from "../../Data/Types/UserTypes";
-import { LoginForm } from "../Login/LoginForm";
+import { LoginForm } from "../AuthForms/LoginForm";
 import { RiTicketLine } from "react-icons/ri";
 import { redirect } from "react-router";
+import { RegistrationForm } from "../AuthForms/RegistrationForm";
+
+import "./MenuSider.css";
+
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
@@ -27,22 +31,26 @@ function getItem(
 
 export const MenuSider = () => {
 	const [collapsed, setCollapsed] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+	const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 	const [current, setCurrent] = useState("home");
 	const [user, setUser] = useState<User | null>();
 	const auth = useAuth();
 
+	const {
+		token: { colorBgContainer },
+	} = theme.useToken();
+
 	useEffect(() => {
-		setIsModalOpen(false);
+		setIsLoginModalOpen(false);
 		setUser(auth.user);
 
 		if (user !== null || user !== undefined) {
-			setIsModalOpen(false);
+			setIsLoginModalOpen(false);
 		}
 	}, [auth.user, user]);
 
 	const MenuItems = () => {
-		console.log(auth);
 		if (user === null || user === undefined) {
 			return [
 				getItem("Home", "home", <HomeOutlined />),
@@ -65,7 +73,10 @@ export const MenuSider = () => {
 
 	const onClick: MenuProps["onClick"] = (e) => {
 		if (e.key === "login") {
-			showModal();
+			showLoginModal();
+		}
+		if (e.key === "signup") {
+			showRegisterModal();
 		}
 		if (e.key === "home") {
 			setCurrent("home");
@@ -75,21 +86,36 @@ export const MenuSider = () => {
 			setCurrent("account");
 			redirect("/account");
 		}
+		if (e.key === "my-tickets") {
+			setCurrent("my-tickets");
+			redirect("/my-tickets");
+		}
+		if (e.key === "trip-planner") {
+			setCurrent("trip-planner");
+			redirect("/trip-planner");
+		}
 	};
 	const handleOk = () => {
-		console.log("ok");
-		console.log(isModalOpen);
-		setIsModalOpen(false);
+		setIsLoginModalOpen(false);
 	};
 
-	const showModal = () => {
-		setIsModalOpen(true);
+	const showLoginModal = () => {
+		setIsLoginModalOpen(true);
+	};
+	const showRegisterModal = () => {
+		setIsRegisterModalOpen(true);
 	};
 
 	const handleCancel = () => {
-		console.log("cancel");
-		console.log(isModalOpen);
-		setIsModalOpen(false);
+		setIsLoginModalOpen(false);
+		setIsRegisterModalOpen(false);
+	};
+
+	const siderStyle = {
+		backgroundColor: "#fdba74",
+	};
+	const menuStyle = {
+		backgroundColor: "#fdba74",
 	};
 
 	return (
@@ -98,21 +124,32 @@ export const MenuSider = () => {
 				collapsible
 				collapsed={collapsed}
 				onCollapse={(value) => setCollapsed(value)}
+				style={siderStyle}
 			>
 				<div
 					style={{
-						height: 32,
-						margin: 16,
-						// background: "rgba(255, 255, 255, 0.2)",
+						height: 64,
+						margin: 0,
+						backgroundColor: "rgb(0,33,64)",
 						color: "white",
+						display: "flex",
 						fontWeight: "bold",
-						textAlign: "center",
+						alignItems: "center",
+						justifyContent: "center",
 					}}
 				>
-					<h1>{collapsed ? "ET" : "EnTrack"}</h1>
+					<h1
+						style={{
+							color: "white",
+							justifyContent: "center",
+							height: 15,
+						}}
+					>
+						{collapsed ? "ET" : "EnTrack"}
+					</h1>
 				</div>
 				<Menu
-					theme="dark"
+					style={menuStyle}
 					defaultSelectedKeys={["home"]}
 					defaultOpenKeys={["sub1"]}
 					selectedKeys={[current]}
@@ -122,14 +159,28 @@ export const MenuSider = () => {
 				/>
 				<Modal
 					title="Login"
+					closable={false}
+					centered
+					onOk={handleOk}
+					onCancel={handleCancel}
+					open={isLoginModalOpen}
+					footer={null}
+					wrapClassName="custom-modal-style"
+				>
+					<LoginForm />
+				</Modal>
+				<Modal
+					title="Registration"
 					closable
 					centered
 					onOk={handleOk}
 					onCancel={handleCancel}
-					open={isModalOpen}
+					open={isRegisterModalOpen}
 					footer={null}
+					width="50vw"
+					wrapClassName="custom-modal-style"
 				>
-					<LoginForm />
+					<RegistrationForm />
 				</Modal>
 			</Sider>
 		</>

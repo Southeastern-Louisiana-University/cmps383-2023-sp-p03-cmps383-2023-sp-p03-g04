@@ -6,12 +6,24 @@ import { Api } from "../Config";
 type AuthContextValue = {
 	user: User | null;
 	login: (username: string, password: string) => Promise<void>;
+	register: (inputData: Registration) => Promise<void>;
 	logout: () => Promise<void>;
+};
+
+type Registration = {
+	username: string;
+	password: string;
+	firstname: string;
+	lastname: string;
+	address: string;
+	email: string;
+	roles: Array<string>;
 };
 
 const AuthContext = createContext<AuthContextValue>({
 	user: null,
 	login: () => Promise.resolve(),
+	register: () => Promise.resolve(),
 	logout: () => Promise.resolve(),
 });
 
@@ -40,7 +52,20 @@ export const AuthProvider = ({ children }: any) => {
 			);
 
 			if (status === 200) {
-				console.log(data);
+				setUser(data);
+			} else {
+				throw Error;
+			}
+		} catch {
+			throw Error;
+		}
+	}
+
+	async function register(inputData: Registration) {
+		try {
+			const { data, status } = await Api.post<User>("/users", inputData);
+
+			if (status === 200) {
 				setUser(data);
 			} else {
 				throw Error;
@@ -55,7 +80,7 @@ export const AuthProvider = ({ children }: any) => {
 	}
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout }}>
+		<AuthContext.Provider value={{ user, login, register, logout }}>
 			{children}
 		</AuthContext.Provider>
 	);
