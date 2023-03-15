@@ -39,6 +39,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllers();
 var services = builder.Services;
+
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 services.AddMvc();
 builder.Services.AddScoped<MailSender>();
 
@@ -84,7 +95,7 @@ app.UseSpa(spaBuilder =>
         spaBuilder.UseProxyToSpaDevelopmentServer("https://localhost:3000/");
     }
 });
-
+app.UseCors("AllowOrigin");
 app.Run();
 
 //see: https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-7.0

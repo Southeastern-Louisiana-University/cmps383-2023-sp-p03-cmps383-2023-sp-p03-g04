@@ -8,7 +8,6 @@ const App = () => {
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken();
-
 	return (
 		<>
 			<Layout style={{ minHeight: "100vh" }}>
@@ -16,8 +15,8 @@ const App = () => {
 				<Layout className="site-layout">
 					<Header
 						style={{
-							padding: 0,
-							background: "rgba(0,21,41)",
+							paddingLeft: 0,
+							background: "rgb(0,33,64)",
 						}}
 					/>
 					<Content

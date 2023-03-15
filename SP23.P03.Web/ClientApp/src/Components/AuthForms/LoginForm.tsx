@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { Button, Form, Input, notification } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import React, { useState } from "react";
 import { useAuth } from "../../Authentication/AuthContext";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -49,14 +49,14 @@ export const LoginForm = () => {
 				setIsLoading(false);
 				openNotification();
 				setStatus("");
-			}, 1000);
+			}, 500);
 		} catch {
 			setHasError("error");
 			setIsLoading(false);
 			openNotification();
 		}
+		Modal.destroyAll();
 	};
-
 	return (
 		<Form validateMessages={validateMessages} onFinish={tryLogin}>
 			{contextHolder}
