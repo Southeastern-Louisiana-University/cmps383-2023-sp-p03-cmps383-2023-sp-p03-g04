@@ -50,6 +50,7 @@ export const RegistrationForm = () => {
 	};
 
 	const validateMessages = {
+		// eslint-disable-next-line no-template-curly-in-string
 		required: "${label} is required",
 	};
 	const options = addressPredictions.map((option) => {

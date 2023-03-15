@@ -3,7 +3,6 @@ import { Button, Form, Input, Modal, notification } from "antd";
 import React, { useState } from "react";
 import { useAuth } from "../../Authentication/AuthContext";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { getAddress } from "../../Data/GoogleMapsApi";
 
 export const LoginForm = () => {
 	const auth = useAuth();
