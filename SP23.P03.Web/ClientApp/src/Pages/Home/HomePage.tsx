@@ -1,8 +1,7 @@
-import { Breadcrumb, Button, Layout, Modal, theme } from "antd";
+import { Layout, theme } from "antd";
 import "antd/dist/reset.css";
-import { Header, Content, Footer } from "antd/es/layout/layout";
-import React, { useEffect, useState } from "react";
-import { MenuSider } from "../../Components/HomeComponents/MenuSider";
+import { Header, Content } from "antd/es/layout/layout";
+import React from "react";
 import { HomeContent } from "../../Components/HomeComponents/HomeContent";
 
 export const HomePage = () => {
@@ -16,7 +15,7 @@ export const HomePage = () => {
 				<Header
 					style={{
 						padding: 0,
-						background: "rgba(0,21,41)",
+						background: colorBgContainer,
 					}}
 				/>
 				<Content
