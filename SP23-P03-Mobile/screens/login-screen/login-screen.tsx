@@ -17,10 +17,11 @@ import { useNavigation } from "@react-navigation/native";
           }, []);
 
         return(
-            <SafeAreaView style={loginStyle.container}>
+            <SafeAreaView style={loginStyle.containerTitle}>
                 <ScrollView>
-                  <Text style={loginStyle.title}>This is the login screen</Text>
-                
+                  <Text style={loginStyle.title}>EnTrack</Text>
+                  <Text style={loginStyle.welcomeTitle}>Welcome to EnTrack!</Text>
+                  <Text style={loginStyle.subCaption}>Please sign in below.</Text>
                 </ScrollView>
             </SafeAreaView>
 
