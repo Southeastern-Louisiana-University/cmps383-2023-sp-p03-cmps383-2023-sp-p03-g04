@@ -1,4 +1,4 @@
-import { Menu, MenuProps, Modal, theme } from "antd";
+import { Menu, MenuProps, Modal } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from "react";
 import { HomeOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
@@ -36,10 +36,6 @@ export const MenuSider = () => {
 	const [current, setCurrent] = useState("home");
 	const [user, setUser] = useState<User | null>();
 	const auth = useAuth();
-
-	const {
-		token: { colorBgContainer },
-	} = theme.useToken();
 
 	useEffect(() => {
 		setIsLoginModalOpen(false);
