@@ -7,32 +7,52 @@ const loginStyle=StyleSheet.create({
         padding: 24,
         backgroundColor: 'white',
       },
+      center:{
+        width: "100%"
+      },
       title: {
-        borderWidth: 4,
         backgroundColor: "#fdba74",
-        marginTop: 30,
-        marginRight: 30,
-        marginLeft: 30,
-        paddingVertical: 8,
+        marginTop: 50,
+        marginRight: 0,
+        marginLeft: 0,
+        paddingVertical: 50,
         color: '#20232a',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 40,
         fontWeight: 'bold',
+        
       },
-
-      welcomeTitle: {
+      centeredView: {
         flex: 1,
-        padding: 74,
-        textAlign: 'center',
-        fontSize: 50,
-        fontWeight: "bold",
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
       },
-
-      subCaption: {
-        padding: 20,
-        textAlign: "center",
-        fontSize: 20,
-      }
+      modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        }
+      },
+      button: {
+        borderRadius: 10,
+        padding: 10,
+        elevation: 2,
+      },
+      buttonClose: {
+        backgroundColor: 'black',
+      },
+      textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
 });
 
 export default loginStyle;
