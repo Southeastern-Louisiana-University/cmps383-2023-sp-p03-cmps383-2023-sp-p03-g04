@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "set EXPO_PACKAGER_PROXY_URL=http://00f8-147-174-75-103.ngrok.io && npx expo start",
+    "start": "set EXPO_PACKAGER_PROXY_URL=http://b95c-147-174-75-3.ngrok.io && npx expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -14,10 +14,14 @@
     "@react-navigation/native-stack": "^6.9.12",
     "@types/reach__router": "^1.3.11",
     "expo": "~47.0.12",
+    "expo-navigation-bar": "~2.0.1",
     "expo-status-bar": "~1.4.2",
+    "native-base": "^3.4.28",
     "react": "18.1.0",
+    "react-dom": "18.0.0",
     "react-native": "0.70.5",
-    "expo-navigation-bar": "~2.0.1"
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

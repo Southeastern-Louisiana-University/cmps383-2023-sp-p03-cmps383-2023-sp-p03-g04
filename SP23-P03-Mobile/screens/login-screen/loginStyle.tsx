@@ -7,31 +7,20 @@ const loginStyle=StyleSheet.create({
         padding: 24,
         backgroundColor: 'white',
       },
+      center:{
+        width: "100%"
+      },
       title: {
-        borderWidth: 4,
         backgroundColor: "#fdba74",
-        marginTop: 30,
-        marginRight: 30,
-        marginLeft: 30,
-        paddingVertical: 8,
+        marginTop: 50,
+        marginRight: 0,
+        marginLeft: 0,
+        paddingVertical: 50,
         color: '#20232a',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 40,
         fontWeight: 'bold',
-      },
-
-      welcomeTitle: {
-        flex: 1,
-        padding: 74,
-        textAlign: 'center',
-        fontSize: 50,
-        fontWeight: "bold",
-      },
-
-      subCaption: {
-        padding: 20,
-        textAlign: "center",
-        fontSize: 20,
+        
       }
 });
 
