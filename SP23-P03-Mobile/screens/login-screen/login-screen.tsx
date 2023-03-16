@@ -1,11 +1,30 @@
 import {
     SafeAreaView,
     ScrollView,
+    Modal,
+    View,
+    Alert,
+    Pressable
   } from "react-native";
 import loginStyle from "./loginStyle";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Button, FormControl, HStack, Input, Link, NativeBaseProvider, VStack, Text, Center, Box, Heading } from "native-base";
+import { 
+    Button, 
+    FormControl, 
+    HStack, 
+    Input, 
+    Link, 
+    NativeBaseProvider, 
+    VStack, 
+    Text, 
+    Center, 
+    Box, 
+    Heading,
+    CloseIcon,
+    IconButton,
+  } from "native-base";
+
 
 
     const LoginScreen = () => {
@@ -15,6 +34,12 @@ import { Button, FormControl, HStack, Input, Link, NativeBaseProvider, VStack, T
               headerShown: false,
             });
           }, []);
+
+        const[modalVisible, setModalVisible] = useState(false);
+
+        function pressHandler(){
+          setModalVisible(true);
+        }
 
         return(
           <NativeBaseProvider>
@@ -52,13 +77,62 @@ import { Button, FormControl, HStack, Input, Link, NativeBaseProvider, VStack, T
                     <Text fontSize="sm" color="coolGray.600">
                       I'm a new user.{" "}
                     </Text>
-                    <Link _text={{
+                    <Link onPress={pressHandler}
+                     _text={{
                     color: "indigo.500",
                     fontWeight: "medium",
                     fontSize: "sm"
                   }} href="#">
                       Sign Up
                     </Link>
+                    <View style={loginStyle.centeredView}>
+                      <Modal
+                        animationType="fade"
+                        transparent={false}
+                        visible={modalVisible}
+                        onRequestClose={() =>{
+                          Alert.alert('Modal has been closed');
+                          setModalVisible(!modalVisible);
+                        }}>
+                        <View style={loginStyle.centeredView}>
+                          <View style={loginStyle.modalView}>
+                          <Center style={loginStyle.center}>
+                            <Box safeArea p="2" w="90%" maxW="290" py="8">
+                                <Heading size="lg" color="coolGray.800" fontWeight="semibold">
+                                Sign up to continue!
+                                </Heading>
+                                <VStack space={3} mt="10">
+                                <FormControl>
+                                    <FormControl.Label>Username</FormControl.Label>
+                                    <Input />
+                                </FormControl>
+                                <FormControl>
+                                    <FormControl.Label>Email</FormControl.Label>
+                                    <Input />
+                                </FormControl>
+                                <FormControl>
+                                    <FormControl.Label>Password</FormControl.Label>
+                                    <Input type="password" />
+                                </FormControl>
+                                <FormControl>
+                                    <FormControl.Label>Confirm Password</FormControl.Label>
+                                    <Input type="password" />
+                                </FormControl>
+                                <Button mt="2" colorScheme="indigo">
+                                    Sign up
+                                </Button>
+                                </VStack>
+                            </Box>
+                        </Center>
+                            <Button
+                              style={[loginStyle.button, loginStyle.buttonClose]}
+                              onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={loginStyle.textStyle}>Close</Text>
+                            </Button>
+                          </View>
+                        </View>
+                      </Modal>
+                    </View>
                   </HStack>
                 </VStack>
                 </Box>
