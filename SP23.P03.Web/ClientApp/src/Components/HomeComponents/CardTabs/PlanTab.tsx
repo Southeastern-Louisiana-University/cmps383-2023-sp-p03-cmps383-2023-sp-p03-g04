@@ -1,9 +1,9 @@
 import { ConfigProvider, Steps } from "antd";
 import { TripInputForm } from "../TripForm/TripInputForm";
-import { useEffect, useState } from "react";
 import { BookResults } from "../BookResults/BookResults";
 
 import "./PlanTabStyle.css";
+import { useState } from "react";
 
 export const PlanTab = () => {
 	const [currentStep, setCurrentStep] = useState(0);
