@@ -2,8 +2,7 @@ import { AutoComplete, Button, Form, Input, Modal, notification } from "antd";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../Authentication/AuthContext";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import { getAddress, getAddressDetails } from "../../Data/GoogleMapsApi";
-
+import { getAddress, getAddressDetails } from "../../Data/GoogleMaps/PlacesApi";
 export const RegistrationForm = () => {
 	const auth = useAuth();
 	const [api, contextHolder] = notification.useNotification();
@@ -11,7 +10,9 @@ export const RegistrationForm = () => {
 	const [status, setStatus] = useState(undefined as any);
 	const [isLoading, setIsLoading] = useState(false);
 	const [addressQuery, setAddressQuery] = useState("");
-	const [addressPredictions, setAddressPredictions] = useState([] as any[]);
+	const [addressPredictions, setAddressPredictions] = useState(
+		[] as any[] | undefined
+	);
 	const [address, setAddressValue] = useState("");
 
 	useEffect(() => {
@@ -53,7 +54,7 @@ export const RegistrationForm = () => {
 		// eslint-disable-next-line no-template-curly-in-string
 		required: "${label} is required",
 	};
-	const options = addressPredictions.map((option) => {
+	const options = addressPredictions!.map((option) => {
 		return {
 			label: option.description,
 			value: option.description,
@@ -61,7 +62,7 @@ export const RegistrationForm = () => {
 	});
 
 	const onSelect = async (data) => {
-		data = addressPredictions.filter((pred) => pred.description === data);
+		data = addressPredictions!.filter((pred) => pred.description === data);
 		const details = await getAddressDetails(data[0].Id);
 		setAddressValue(details as string);
 	};
@@ -103,9 +104,10 @@ export const RegistrationForm = () => {
 		}
 	};
 	return (
-		<>
+		<div className="container">
 			<Form validateMessages={validateMessages} onFinish={tryRegister}>
 				{contextHolder}
+
 				<Form.Item
 					label="First Name"
 					name="firstname"
@@ -116,9 +118,12 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<Input prefix={<UserOutlined />} />
 				</Form.Item>
+
 				<Form.Item
 					label="Last Name"
 					name="lastname"
@@ -129,9 +134,12 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<Input prefix={<UserOutlined />} />
 				</Form.Item>
+
 				<Form.Item
 					label="Address"
 					name="address"
@@ -142,6 +150,8 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<AutoComplete
 						options={options}
@@ -159,6 +169,8 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<Input prefix={<MailOutlined />} />
 				</Form.Item>
@@ -172,6 +184,8 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<Input prefix={<UserOutlined />} />
 				</Form.Item>
@@ -185,6 +199,8 @@ export const RegistrationForm = () => {
 					]}
 					validateStatus={hasError}
 					status={status}
+					labelCol={{ span: 3 }}
+					wrapperCol={{ span: 18 }}
 				>
 					<Input type="password" prefix={<LockOutlined />} />
 				</Form.Item>
@@ -199,6 +215,6 @@ export const RegistrationForm = () => {
 					</Button>
 				</Form.Item>
 			</Form>
-		</>
+		</div>
 	);
 };

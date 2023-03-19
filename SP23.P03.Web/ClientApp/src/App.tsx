@@ -1,13 +1,19 @@
 import React from "react";
 import "antd/dist/reset.css";
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import { MenuSider } from "./Components/HomeComponents/MenuSider";
 import { Content, Header } from "antd/es/layout/layout";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { HomePage } from "./Pages/Home/Home";
 
 const App = () => {
-	const {
-		token: { colorBgContainer },
-	} = theme.useToken();
+	const router = createBrowserRouter([
+		{
+			path: "/",
+			element: <HomePage />,
+		},
+	]);
+
 	return (
 		<>
 			<Layout style={{ minHeight: "100vh" }}>
@@ -16,22 +22,22 @@ const App = () => {
 					<Header
 						style={{
 							paddingLeft: 0,
-							background: "rgb(0,33,64)",
+							background: "#3223d3",
 						}}
 					/>
 					<Content
 						style={{
-							margin: "0 16px",
-							background: colorBgContainer,
+							background: "white",
 						}}
 					>
 						<div
 							style={{
 								padding: 24,
 								minHeight: 360,
-								background: colorBgContainer,
 							}}
-						></div>
+						>
+							<RouterProvider router={router} />
+						</div>
 					</Content>
 				</Layout>
 			</Layout>

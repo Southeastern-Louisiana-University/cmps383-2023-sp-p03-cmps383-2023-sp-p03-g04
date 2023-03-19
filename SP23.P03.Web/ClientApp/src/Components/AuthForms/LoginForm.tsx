@@ -53,6 +53,7 @@ export const LoginForm = () => {
 		} catch {
 			setHasError("error");
 			setIsLoading(false);
+			setStatus("error");
 			openNotification();
 		}
 		Modal.destroyAll();
