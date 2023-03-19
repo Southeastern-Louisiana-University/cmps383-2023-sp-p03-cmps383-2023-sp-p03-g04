@@ -1,4 +1,10 @@
 .custom-modal-style .ant-modal-content{
     border: 15px solid rgb(0,33,64);
 }
+.menu-sider .ant-menu-item::after {
+    color: darkblue;
+}
+.ant-layout-sider-trigger {
+    background: #3223d3 !important;
+}
 

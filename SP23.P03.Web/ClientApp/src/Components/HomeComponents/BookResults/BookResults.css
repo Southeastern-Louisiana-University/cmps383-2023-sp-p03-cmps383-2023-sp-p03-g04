@@ -1,0 +1,40 @@
+.list-wrapper {
+    max-height: calc(50vh - 64px);
+    overflow-y: scroll;
+}
+
+.ticket-button {
+    height: 100%;
+    width: 100%;
+    border-color: black;
+    background-color: white;
+}
+
+.ticket-button:hover{
+    color: black !important;
+    border: 3px solid rgb(253,186,116) !important;
+}
+
+.ant-switch-checked .ant-switch-handle::before {
+    display: none !important;
+}
+.ant-switch-handle::before {
+    display: none !important;
+}
+.ant-switch-handle {
+    width: 14px !important;
+    height: 14px !important;
+ }
+.ant-switch-checked:hover {
+    background-color: rgb(253,186,116) !important;
+}
+
+.row {
+    font-size: large;
+    text-align: center;
+    justify-content: center;
+}
+
+.row-avail{
+    color: green;
+}
