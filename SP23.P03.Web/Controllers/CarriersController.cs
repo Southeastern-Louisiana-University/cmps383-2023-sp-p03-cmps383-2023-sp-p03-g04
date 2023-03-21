@@ -28,12 +28,16 @@ namespace SP23.P03.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Carrier>>> GetAllCarriers()
         {
-            return await _dataContext.Carrier.ToListAsync();
+            return await _dataContext.Carrier
+                .Include(x => x.Trains)
+                .ToListAsync();
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Carrier>> GetById(int id)
         {
-            var carrier = await _dataContext.Carrier.FindAsync(id);
+            var carrier = await _dataContext.Carrier
+                .Include(x => x.Trains)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (carrier == null)
                 return NotFound();
