@@ -18,7 +18,7 @@ export const getAddress = async (query: string) => {
     const client = new Client({})
 
     const response = await client.placeAutocomplete(request)
-
+    
     const results = response.data.predictions.map((prediction) => {
         return {
             Id: prediction.place_id,
@@ -40,4 +40,29 @@ export const getAddressDetails = async (placeId: string) => {
     const client = new Client({})
     const response = await client.placeDetails(request);
     return response.data.result.formatted_address;
+}
+
+export const getAddressCityCountry = async (query: string) => {
+    const request: PlaceAutocompleteRequest = {
+        params: {
+            input: query,
+            key: API_KEY,
+            components: ["country:us"],
+            types: PlaceAutocompleteType.cities,
+            client_secret: SECRET,
+        },
+        url: `https://cors-proxy-server-ns4l4b36ea-uc.a.run.app/https://maps.googleapis.com/maps/api/place/autocomplete/json`,
+    }
+    const client = new Client({})
+
+    const response = await client.placeAutocomplete(request)
+
+    const results = response.data.predictions.map((prediction) => {
+        return {
+            Id: prediction.place_id,
+            description: prediction.description
+        }
+    })
+
+    return results;
 }

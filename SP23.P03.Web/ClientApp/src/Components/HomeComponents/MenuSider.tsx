@@ -1,7 +1,13 @@
 import { Menu, MenuProps, Modal } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from "react";
-import { HomeOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import {
+	BookOutlined,
+	HomeOutlined,
+	SettingOutlined,
+	UserDeleteOutlined,
+	UserOutlined,
+} from "@ant-design/icons";
 import { useAuth } from "../../Authentication/AuthContext";
 import { User } from "../../Data/Types/UserTypes";
 import { LoginForm } from "../AuthForms/LoginForm";
@@ -50,23 +56,29 @@ export const MenuSider = () => {
 		if (user === null || user === undefined) {
 			return [
 				getItem("Home", "home", <HomeOutlined />),
-				getItem("User", "sub1", <UserOutlined />, [
+				getItem("Account", "account", <UserOutlined />, [
 					getItem("Login", "login"),
 					getItem("Sign-Up", "signup"),
 				]),
 			];
 		} else {
 			return [
-				getItem("Home", "home"),
-				getItem("User", "sub1", <UserOutlined />, [
-					getItem("Account", "account", <SettingOutlined />),
+				getItem("Home", "home", <HomeOutlined />),
+				getItem("Account", "account", <UserOutlined />, [
+					getItem("Logout", "logout", <UserDeleteOutlined />),
+					getItem("My Account", "my-account", <SettingOutlined />),
 					getItem("My Tickets", "my-tickets", <RiTicketLine />),
+
+					getItem(
+						"Ticket History",
+						"ticket-history",
+						<BookOutlined />
+					),
 				]),
-				getItem("Trip Planner", "trip-planner"),
 			];
 		}
 	};
-
+	const handleModalCancel = () => {};
 	const onClick: MenuProps["onClick"] = (e) => {
 		if (e.key === "login") {
 			showLoginModal();
@@ -74,21 +86,21 @@ export const MenuSider = () => {
 		if (e.key === "signup") {
 			showRegisterModal();
 		}
-		if (e.key === "home") {
-			setCurrent("home");
-			redirect("/");
-		}
-		if (e.key === "account") {
-			setCurrent("account");
-			redirect("/account");
-		}
-		if (e.key === "my-tickets") {
-			setCurrent("my-tickets");
-			redirect("/my-tickets");
-		}
-		if (e.key === "trip-planner") {
-			setCurrent("trip-planner");
-			redirect("/trip-planner");
+		if (e.key === "logout") {
+			Modal.confirm({
+				title: "Logout",
+				content: "Are you sure you want to logout?",
+				okText: "Yes",
+				cancelText: "No",
+				onOk: () => {
+					auth.logout();
+					setCurrent("home");
+				},
+				onCancel: handleModalCancel,
+			});
+		} else {
+			setCurrent(e.key);
+			redirect(`/${e.key}`);
 		}
 	};
 	const handleOk = () => {
@@ -107,11 +119,13 @@ export const MenuSider = () => {
 		setIsRegisterModalOpen(false);
 	};
 
-	const siderStyle = {
+	const siderStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
+		position: "sticky",
 	};
-	const menuStyle = {
+	const menuStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
+		position: "sticky",
 	};
 
 	return (
@@ -126,7 +140,7 @@ export const MenuSider = () => {
 					style={{
 						height: 64,
 						margin: 0,
-						backgroundColor: "rgb(0,33,64)",
+						backgroundColor: "#3223d3",
 						color: "white",
 						display: "flex",
 						fontWeight: "bold",
@@ -147,11 +161,12 @@ export const MenuSider = () => {
 				<Menu
 					style={menuStyle}
 					defaultSelectedKeys={["home"]}
-					defaultOpenKeys={["sub1"]}
+					defaultOpenKeys={["account"]}
 					selectedKeys={[current]}
 					mode="inline"
 					items={MenuItems()}
 					onClick={onClick}
+					rootClassName="menu-sider"
 				/>
 				<Modal
 					title="Login"
