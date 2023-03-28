@@ -1,5 +1,6 @@
 ﻿using SP23.P03.Web.Features.Carriers;
 using SP23.P03.Web.Features.Trains;
+using SP23.P03.Web.Features.TrainStations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SP23.P03.Web.Features
@@ -14,9 +15,12 @@ namespace SP23.P03.Web.Features
 
         [ForeignKey("TrainStationId")]
         public int DepartingStationId { get; set; }
+        public TrainStation DepartingStation { get; set; }
+
         [ForeignKey("TrainStationId")]
         public int ArrivingStationId { get; set; }
+        public TrainStation ArrivingStation { get; set; }
 
-        public virtual ICollection<TrainCar> TrainCars { get; set; }
+        public ICollection<TrainCar> TrainCars { get; set; }
     }
 }
