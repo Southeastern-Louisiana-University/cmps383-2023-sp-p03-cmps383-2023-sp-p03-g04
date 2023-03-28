@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SP23.P03.Web.Data;
 using SP23.P03.Web.EmailSender;
 using SP23.P03.Web.Features.Authorization;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 //builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(b => b.AllowedCertificateTypes = CertificateTypes.All);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
+;
 var services = builder.Services;
 
 services.AddCors(options =>

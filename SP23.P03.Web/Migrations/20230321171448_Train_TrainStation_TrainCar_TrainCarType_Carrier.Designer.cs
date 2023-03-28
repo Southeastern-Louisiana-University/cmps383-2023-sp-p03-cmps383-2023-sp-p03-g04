@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SP23.P03.Web.Data;
 
@@ -11,9 +12,11 @@ using SP23.P03.Web.Data;
 namespace SP23.P03.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230321171448_Train_TrainStation_TrainCar_TrainCarType_Carrier")]
+    partial class TrainTrainStationTrainCarTrainCarTypeCarrier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,32 +251,12 @@ namespace SP23.P03.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("ArrivalTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("ArrivingStationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CarrierId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartingStationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("DepartureTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ArrivingStationId");
-
                     b.HasIndex("CarrierId");
-
-                    b.HasIndex("DepartingStationId");
 
                     b.ToTable("Train");
                 });
@@ -314,9 +297,6 @@ namespace SP23.P03.Web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketsSold")
                         .HasColumnType("int");
 
                     b.Property<int>("TrainCarTypeId")
@@ -408,29 +388,13 @@ namespace SP23.P03.Web.Migrations
 
             modelBuilder.Entity("SP23.P03.Web.Features.Train", b =>
                 {
-                    b.HasOne("SP23.P03.Web.Features.TrainStations.TrainStation", "ArrivingStation")
-                        .WithMany()
-                        .HasForeignKey("ArrivingStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SP23.P03.Web.Features.Carriers.Carrier", "Carrier")
                         .WithMany("Trains")
                         .HasForeignKey("CarrierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SP23.P03.Web.Features.TrainStations.TrainStation", "DepartingStation")
-                        .WithMany()
-                        .HasForeignKey("DepartingStationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ArrivingStation");
-
                     b.Navigation("Carrier");
-
-                    b.Navigation("DepartingStation");
                 });
 
             modelBuilder.Entity("SP23.P03.Web.Features.TrainStations.TrainStation", b =>
@@ -450,13 +414,11 @@ namespace SP23.P03.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SP23.P03.Web.Features.Train", "Train")
+                    b.HasOne("SP23.P03.Web.Features.Train", null)
                         .WithMany("TrainCars")
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Train");
 
                     b.Navigation("TrainCarType");
                 });
