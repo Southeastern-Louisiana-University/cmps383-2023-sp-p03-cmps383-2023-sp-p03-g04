@@ -1,5 +1,5 @@
 .list-wrapper {
-    max-height: calc(50vh - 64px);
+    max-height: 100vh;
     overflow-y: scroll;
 }
 
@@ -29,6 +29,10 @@
     background-color: rgb(253,186,116) !important;
 }
 
+.anticon svg path {
+    stroke-width: 30px; /* adjust the stroke width to make the line longer */
+}
+
 .row {
     font-size: large;
     text-align: center;
@@ -37,4 +41,9 @@
 
 .row-avail{
     color: green;
+}
+
+.ticket-info {
+    font-size: 18px;
+    margin-top: 10px;
 }

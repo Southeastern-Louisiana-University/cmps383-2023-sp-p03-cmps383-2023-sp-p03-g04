@@ -107,7 +107,6 @@ export const TripInputForm = (props: FormProps) => {
 			return: sessionStorage.getItem("to-city")!,
 			depart: sessionStorage.getItem("from-cty")!,
 		};
-		console.log(data);
 		props.onSubmit(data);
 	};
 

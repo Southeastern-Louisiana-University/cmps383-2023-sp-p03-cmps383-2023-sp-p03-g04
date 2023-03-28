@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SP23.P03.Web.Data;
 
@@ -11,9 +12,11 @@ using SP23.P03.Web.Data;
 namespace SP23.P03.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230328220755_Trains_Stations_Dest")]
+    partial class TrainsStationsDest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,9 +251,6 @@ namespace SP23.P03.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("ArrivalTime")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<int>("ArrivingStationId")
                         .HasColumnType("int");
 
@@ -259,13 +259,6 @@ namespace SP23.P03.Web.Migrations
 
                     b.Property<int>("DepartingStationId")
                         .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("DepartureTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -450,13 +443,11 @@ namespace SP23.P03.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SP23.P03.Web.Features.Train", "Train")
+                    b.HasOne("SP23.P03.Web.Features.Train", null)
                         .WithMany("TrainCars")
                         .HasForeignKey("TrainId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Train");
 
                     b.Navigation("TrainCarType");
                 });
