@@ -23,6 +23,8 @@ const App = () => {
 						style={{
 							paddingLeft: 0,
 							background: "#3223d3",
+							position: "sticky",
+							zIndex: 9999,
 						}}
 					/>
 					<Content
@@ -34,6 +36,7 @@ const App = () => {
 							style={{
 								padding: 24,
 								minHeight: 360,
+								maxWidth: 1400,
 							}}
 						>
 							<RouterProvider router={router} />
