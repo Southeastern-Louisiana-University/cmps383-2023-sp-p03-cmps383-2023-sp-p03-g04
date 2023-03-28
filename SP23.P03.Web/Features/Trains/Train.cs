@@ -11,6 +11,12 @@ namespace SP23.P03.Web.Features
         [ForeignKey("CarrierId")]
         public int CarrierId { get; set; }
         public Carrier Carrier { get; set; }
+
+        [ForeignKey("TrainStationId")]
+        public int DepartingStationId { get; set; }
+        [ForeignKey("TrainStationId")]
+        public int ArrivingStationId { get; set; }
+
         public virtual ICollection<TrainCar> TrainCars { get; set; }
     }
 }
