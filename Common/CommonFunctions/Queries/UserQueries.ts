@@ -1,4 +1,4 @@
-import { Api } from './../../SP23.P03.Web/ClientApp/src/Config';
+import { Api } from './../ApiConfig'
 import { CreateUserRequest, GetUserResponse, User } from './../../CommonTypes/UserTypes';
 
 export function getCurrentUser(): User | null {
