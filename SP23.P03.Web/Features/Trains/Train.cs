@@ -24,7 +24,7 @@ namespace SP23.P03.Web.Features
         public DateTimeOffset ArrivalTime { get; set; }
         public DateTimeOffset DepartureTime { get; set; }
 
-        public string Status { get; set; } = string.Empty;
+        public string Status { get; set; }
 
         public ICollection<TrainCar> TrainCars { get; set; }
     }

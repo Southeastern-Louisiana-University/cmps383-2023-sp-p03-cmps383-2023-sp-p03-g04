@@ -43,7 +43,7 @@ namespace SP23.P03.Web.Controllers
             {
                 return BadRequest();
             }
-            var trainCar = await _dataContext.TrainCar.FindAsync(new { id });
+            var trainCar = await _dataContext.TrainCar.FirstOrDefaultAsync(x => x.Id == id);
 
             return trainCar == null ? NotFound() : Ok(trainCar);
         }
@@ -55,7 +55,7 @@ namespace SP23.P03.Web.Controllers
             {
                 return BadRequest();
             }
-            var trainCar = await _dataContext.TrainCar.FindAsync(new { id });
+            var trainCar = await _dataContext.TrainCar.FirstOrDefaultAsync(x => x.Id == id);
 
             if (trainCar == null)
             {
@@ -76,7 +76,7 @@ namespace SP23.P03.Web.Controllers
             {
                 return BadRequest();
             }
-            var trainCar = await _dataContext.TrainCar.FindAsync(new { id });
+            var trainCar = await _dataContext.TrainCar.FirstOrDefaultAsync(x => x.Id == id);
 
             if (trainCar == null)
             {
