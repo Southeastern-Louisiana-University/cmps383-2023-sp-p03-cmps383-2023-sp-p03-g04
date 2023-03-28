@@ -26,7 +26,7 @@ namespace SP23.P03.Web.Migrations
                 column: "ArrivingStationId",
                 principalTable: "TrainStation",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Train_TrainStation_DepartingStationId",
@@ -34,7 +34,7 @@ namespace SP23.P03.Web.Migrations
                 column: "DepartingStationId",
                 principalTable: "TrainStation",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />
