@@ -6,6 +6,7 @@ using SP23.P03.Web.Features.Carriers;
 namespace SP23.P03.Web.Controllers
 {
     [ApiController]
+    [Route("api/Carriers")]
     public class CarriersController : Controller
     {
         private readonly DataContext _dataContext;
@@ -32,7 +33,8 @@ namespace SP23.P03.Web.Controllers
                 .Include(x => x.Trains)
                 .ToListAsync();
         }
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("{id}")]
         public async Task<ActionResult<Carrier>> GetById(int id)
         {
             var carrier = await _dataContext.Carrier
@@ -44,7 +46,8 @@ namespace SP23.P03.Web.Controllers
             return Ok(carrier);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("{id}")]
         public async Task<ActionResult<Carrier>> UpdateCarrier(int id, Carrier updateCarrier)
         {
             var carrier = await _dataContext.Carrier.FindAsync(id);
@@ -58,7 +61,8 @@ namespace SP23.P03.Web.Controllers
 
             return Ok(carrier);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("{id}")]
         public async Task<ActionResult> DeleteCarrier(int id)
         {
             var carrier = await _dataContext.Carrier.FindAsync(id);
