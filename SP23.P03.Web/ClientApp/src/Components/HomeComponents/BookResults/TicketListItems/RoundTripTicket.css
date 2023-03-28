@@ -1,0 +1,18 @@
+.card-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dest-text {
+    font-weight: bold;
+    font-size: 13;
+}
+
+
+.icon-style {
+    font-size: 40px;
+    display: flex;
+    justify-content: left;
+    align-content: baseline;
+}
