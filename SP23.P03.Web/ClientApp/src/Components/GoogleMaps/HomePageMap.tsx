@@ -1,24 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./MapStyles.css";
 import {
 	DirectionsRenderer,
 	DirectionsService,
 	GoogleMap,
 	InfoWindow,
-	LoadScript,
 	Marker,
 } from "@react-google-maps/api";
-import {
-	RouteLocationItem,
-	RouteLocations,
-} from "../../Data/Types/GoogleMapsTypes";
+import { RouteLocationItem } from "../../Data/Types/GoogleMapsTypes";
 import { getAddressGeoLocation } from "../../Data/GoogleMaps/PlacesApi";
 
 export const HomePageMap = () => {
-	const [latitude, setLatitude] = useState(0);
-	const [longitude, setLongitude] = useState(0);
 	const [route, setRoute] = useState<any>(null as any);
-	const [error, setError] = useState("");
 	const [selectedMarker, setSelectedMarker] = useState(null);
 
 	const [firstLocation, setFirstLocation] = useState<RouteLocationItem>({
