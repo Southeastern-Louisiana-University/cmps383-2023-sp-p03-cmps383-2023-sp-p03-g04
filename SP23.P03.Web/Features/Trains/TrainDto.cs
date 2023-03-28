@@ -4,6 +4,5 @@
     {
 
         public int CarrierId { get; set; }
-        public int Capacity { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace SP23.P03.Web.Features.Trains
         public int TrainCarTypeId { get; set; }
         public virtual TrainCarType TrainCarType { get; set; }
         public int Capacity { get; set; }
+        public int TicketsSold { get; set; }
     }
 }
