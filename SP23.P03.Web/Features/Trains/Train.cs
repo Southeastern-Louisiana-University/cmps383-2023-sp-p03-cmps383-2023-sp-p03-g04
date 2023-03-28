@@ -21,6 +21,11 @@ namespace SP23.P03.Web.Features
         public int ArrivingStationId { get; set; }
         public TrainStation ArrivingStation { get; set; }
 
+        public DateTimeOffset ArrivalTime { get; set; }
+        public DateTimeOffset DepartureTime { get; set; }
+
+        public string Status { get; set; } = string.Empty;
+
         public ICollection<TrainCar> TrainCars { get; set; }
     }
 }
