@@ -1,4 +1,4 @@
-import { RouteLocationItem, RouteLocations } from './../Types/GoogleMapsTypes';
+import { RouteLocationItem } from './../Types/GoogleMapsTypes';
 import {Client, GeocodeRequest, PlaceAutocompleteRequest, PlaceAutocompleteType, PlaceDetailsRequest} from "@googlemaps/google-maps-services-js"
 
 const API_KEY = "AIzaSyBEM-3Ls4Cgh6Z77T-yDuV6mfKcBgBHQco"

@@ -4,7 +4,6 @@ import { BookResults } from "../BookResults/BookResults";
 
 import "./PlanTabStyle.css";
 import { useState } from "react";
-import { RouteLocations } from "../../../Data/Types/GoogleMapsTypes";
 import { HomePageMap } from "../../GoogleMaps/HomePageMap";
 
 export const PlanTab = () => {

@@ -1,9 +1,6 @@
-import { Button, Card, Col, Divider, Layout, List, Row, theme } from "antd";
-import { Content, Header } from "antd/es/layout/layout";
-import { ArrowRightOutlined } from "@ant-design/icons";
-import { TbArrowNarrowRight } from "react-icons/tb";
+import { Button, Divider, theme } from "antd";
+import { Header } from "antd/es/layout/layout";
 import "./BookResults.css";
-import { useState } from "react";
 import { TicketListItem } from "./TicketListItem";
 
 interface BookingProps {
@@ -12,11 +9,6 @@ interface BookingProps {
 }
 
 export const BookResults = (props: BookingProps) => {
-	const [isClicked, setIsClicked] = useState(false);
-
-	const toStation = sessionStorage.getItem("to-city")!;
-	const fromStation = sessionStorage.getItem("from-city")!;
-
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken();
@@ -24,9 +16,7 @@ export const BookResults = (props: BookingProps) => {
 	const back = () => {
 		props.setCurrentStep(0);
 	};
-	const cardStyle: React.CSSProperties = {
-		width: "100%",
-	};
+
 	const buttonStyle: React.CSSProperties = {
 		display: "flex",
 		flexDirection: "row",

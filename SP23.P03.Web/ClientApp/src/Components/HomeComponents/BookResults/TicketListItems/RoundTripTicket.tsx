@@ -1,4 +1,4 @@
-import { Button, Card, Col, List, Row, theme } from "antd";
+import { Button, Card, Col, List, Row } from "antd";
 import { useState } from "react";
 import { TbArrowsRightLeft } from "react-icons/tb";
 
@@ -8,10 +8,6 @@ export const RoundTripTicket = () => {
 
 	const toStation = sessionStorage.getItem("to-city")!;
 	const fromStation = sessionStorage.getItem("from-city")!;
-
-	const {
-		token: { colorBgContainer },
-	} = theme.useToken();
 
 	const cardStyle: React.CSSProperties = {
 		width: "100%",
