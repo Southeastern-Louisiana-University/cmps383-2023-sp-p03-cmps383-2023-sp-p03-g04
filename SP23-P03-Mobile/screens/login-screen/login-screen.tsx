@@ -21,9 +21,11 @@ import {
     Center, 
     Box, 
     Heading,
-    CloseIcon,
     IconButton,
+    Icon
   } from "native-base";
+import { Entypo } from '@expo/vector-icons';
+
 
 
 
@@ -124,11 +126,12 @@ import {
                                 </VStack>
                             </Box>
                         </Center>
-                            <Button
+                            <Button startIcon={<Icon as={Entypo} name="cross"/>}
                               style={[loginStyle.button, loginStyle.buttonClose]}
                               onPress={() => setModalVisible(!modalVisible)}>
                                 <Text style={loginStyle.textStyle}>Close</Text>
                             </Button>
+                            
                           </View>
                         </View>
                       </Modal>
