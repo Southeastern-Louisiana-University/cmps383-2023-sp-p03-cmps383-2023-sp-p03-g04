@@ -4,11 +4,9 @@ import {
     Modal,
     View,
     Alert,
-    Pressable
   } from "react-native";
 import loginStyle from "./loginStyle";
-import React, { useLayoutEffect, useState} from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState} from "react";
 import { 
     Button, 
     FormControl, 
@@ -21,27 +19,27 @@ import {
     Center, 
     Box, 
     Heading,
-    IconButton,
     Icon
   } from "native-base";
 import { Entypo } from '@expo/vector-icons';
+import { ROUTES } from "../../constants";
+
+interface LoginScreenProps{
+  navigation: any;
+}
 
 
+    const LoginScreen = (props: LoginScreenProps) => {
 
-
-    const LoginScreen = () => {
-        const navigation = useNavigation();
-        useLayoutEffect(() => {
-            navigation.setOptions({
-              headerShown: false,
-            });
-          }, []);
+      const login =()=> props.navigation.navigate("Home")
 
         const[modalVisible, setModalVisible] = useState(false);
 
         function pressHandler(){
           setModalVisible(true);
         }
+
+        
 
         return(
           <NativeBaseProvider>
@@ -76,6 +74,7 @@ import { Entypo } from '@expo/vector-icons';
                     Sign in
                   </Button>
                   <HStack mt="6" justifyContent="center">
+                    
                     <Text fontSize="sm" color="coolGray.600">
                       I'm a new user.{" "}
                     </Text>
@@ -85,8 +84,19 @@ import { Entypo } from '@expo/vector-icons';
                     fontWeight: "medium",
                     fontSize: "sm"
                   }} href="#">
-                      Sign Up
+                     Sign Up
                     </Link>
+                    </HStack>
+                    <HStack mt="1" justifyContent="center">
+                      <Link onPress={login}
+                      _text={{
+                      color: "indigo.500",
+                      fontWeight: "medium",
+                      fontSize: "sm"
+                    }} href="#">
+                        Continue as Guest
+                      </Link>
+                    </HStack>
                     <View style={loginStyle.centeredView}>
                       <Modal
                         animationType="fade"
@@ -136,7 +146,6 @@ import { Entypo } from '@expo/vector-icons';
                         </View>
                       </Modal>
                     </View>
-                  </HStack>
                 </VStack>
                 </Box>
                 </Center>

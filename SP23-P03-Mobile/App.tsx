@@ -1,20 +1,20 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/home-screen/home-screen";
-import LoginScreen from "./screens/login-screen/login-screen";
+import 'react-native-gesture-handler';
+import { NativeBaseProvider } from "native-base";
+import AppNavigator from "./navigation/app.navigator";
+import BottomTabNavigator from "./navigation/bottom-tab-navigator";
+import AuthNavigator from "./navigation/auth-navigator";
 
 
-const Stack = createNativeStackNavigator();
-
-export default function App() {
+const App =() => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <NativeBaseProvider>
+     
+      <BottomTabNavigator/>
+    </NativeBaseProvider>
   );
 }
+
+export default App;
+  
+

@@ -1,11 +1,17 @@
 import {
-    Text,
-    SafeAreaView,
-    ScrollView,
-  } from "react-native";
-  import homeStyle from "./homeStyle";
-  import React, { useLayoutEffect } from "react";
-  import { useNavigation } from "@react-navigation/native";
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import React, { useLayoutEffect, useState} from "react";
+import { 
+  NativeBaseProvider, 
+  Text, 
+  Center, 
+  Box, 
+  Heading,
+} from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import homeStyle from "./homeStyle";
 
   const HomeScreen = () => {
     const navigation = useNavigation();
@@ -17,13 +23,19 @@ import {
     }, []);
   
     return (
-      <SafeAreaView style={homeStyle.container}>
-        <ScrollView>
-        <Text style={homeStyle.title}>This is the home screen</Text>
-        
-        </ScrollView>
-      </SafeAreaView>
+      <NativeBaseProvider>
+        <SafeAreaView style={homeStyle.container}>
+          <ScrollView>
+          <Text style={homeStyle.entrack}>EnTrack</Text>
+          <Text style={homeStyle.title}>Fast.</Text>
+          <Text style={homeStyle.title}>Reliable.</Text>
+          <Text style={homeStyle.title}>Comfortable.</Text>
+          </ScrollView>
+        </SafeAreaView>
+      </NativeBaseProvider>
     );
-  };  
+    
+  };
+    
 
 export default HomeScreen;
