@@ -4,10 +4,10 @@ import { BookResults } from "../BookResults/BookResults";
 
 import "./PlanTabStyle.css";
 import { useState } from "react";
+import { HomePageMap } from "../../GoogleMaps/HomePageMap";
 
 export const PlanTab = () => {
 	const [currentStep, setCurrentStep] = useState(0);
-
 	const onSubmitTrip = () => {};
 	return (
 		<>
@@ -48,10 +48,13 @@ export const PlanTab = () => {
 					/>
 				)}
 				{currentStep === 1 && (
-					<BookResults
-						onSubmit={onSubmitTrip}
-						setCurrentStep={setCurrentStep}
-					/>
+					<>
+						<HomePageMap />
+						<BookResults
+							onSubmit={onSubmitTrip}
+							setCurrentStep={setCurrentStep}
+						/>
+					</>
 				)}
 			</ConfigProvider>
 		</>
