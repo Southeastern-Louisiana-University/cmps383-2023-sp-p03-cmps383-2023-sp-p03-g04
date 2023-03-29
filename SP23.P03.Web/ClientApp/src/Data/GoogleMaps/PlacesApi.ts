@@ -1,8 +1,9 @@
-import {Client, PlaceAutocompleteRequest, PlaceAutocompleteType, PlaceDetailsRequest} from "@googlemaps/google-maps-services-js"
+import { RouteLocationItem } from './../Types/GoogleMapsTypes';
+import {Client, GeocodeRequest, PlaceAutocompleteRequest, PlaceAutocompleteType, PlaceDetailsRequest} from "@googlemaps/google-maps-services-js"
 
 const API_KEY = "AIzaSyBEM-3Ls4Cgh6Z77T-yDuV6mfKcBgBHQco"
 const SECRET = "usXaPPQTWL0vdpwDMnI8quBW9Ps="
-
+const AUTOCOMPLTE_URL = `https://cors-proxy-server-ns4l4b36ea-uc.a.run.app/https://maps.googleapis.com/maps/api/place/autocomplete/json`
 export const getAddress = async (query: string) => {
     const request: PlaceAutocompleteRequest = {
         params: {
@@ -12,7 +13,7 @@ export const getAddress = async (query: string) => {
             types: PlaceAutocompleteType.address,
             client_secret: SECRET,
         },
-        url: `https://cors-proxy-server-ns4l4b36ea-uc.a.run.app/https://maps.googleapis.com/maps/api/place/autocomplete/json`,
+        url: AUTOCOMPLTE_URL,
     }
 
     const client = new Client({})
@@ -51,7 +52,7 @@ export const getAddressCityCountry = async (query: string) => {
             types: PlaceAutocompleteType.cities,
             client_secret: SECRET,
         },
-        url: `https://cors-proxy-server-ns4l4b36ea-uc.a.run.app/https://maps.googleapis.com/maps/api/place/autocomplete/json`,
+        url: AUTOCOMPLTE_URL,
     }
     const client = new Client({})
 
@@ -65,4 +66,27 @@ export const getAddressCityCountry = async (query: string) => {
     })
 
     return results;
+}
+
+export const getAddressGeoLocation = async (address: string) => {
+    
+    const request: GeocodeRequest = {
+        params: {
+            key: API_KEY,
+            address: address,
+        }
+    }
+    try {
+        const client = new Client({})
+        const response = await client.geocode(request)
+
+        const lat = response.data.results[0].geometry.location.lat;
+        const lng = response.data.results[0].geometry.location.lng;
+
+        const result: RouteLocationItem = {lat, lng}
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+    return {lat: 0, lng: 0} as RouteLocationItem
 }

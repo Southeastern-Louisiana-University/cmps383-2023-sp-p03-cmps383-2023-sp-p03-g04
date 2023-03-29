@@ -122,6 +122,7 @@ export const MenuSider = () => {
 	const siderStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
 		position: "sticky",
+		zIndex: 12,
 	};
 	const menuStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
