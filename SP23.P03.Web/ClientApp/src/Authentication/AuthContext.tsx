@@ -27,6 +27,12 @@ const AuthContext = createContext<AuthContextValue>({
 	logout: () => Promise.resolve(),
 });
 
+/**
+ * Hook that returns the current authentication context.
+ * @returns {AuthContextValue} The authentication context value containing user data and auth functions
+ * @throws {Error} If the hook is not used within an AuthProvider
+ */
+
 export function useAuth() {
 	const context = useContext(AuthContext);
 
@@ -37,6 +43,14 @@ export function useAuth() {
 	return context;
 }
 
+/**
+ * Authentication context provider component that wraps its children components and provides authentication-related data and functions to them.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.ReactNode} props.children - The child components to be wrapped by the provider.
+ *
+ * @returns {JSX.Element} The authentication context provider component.
+ */
 export const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = useState<User | null>(null);
 
