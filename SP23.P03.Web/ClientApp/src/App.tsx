@@ -24,7 +24,6 @@ const App = () => {
 							paddingLeft: 0,
 							background: "#3223d3",
 							position: "sticky",
-							zIndex: 9999,
 						}}
 					/>
 					<Content

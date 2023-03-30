@@ -18,3 +18,7 @@ code {
 .ant-modal-content {
   padding: 200px
 }
+
+:root {
+  --blue: #3223d3; 
+}

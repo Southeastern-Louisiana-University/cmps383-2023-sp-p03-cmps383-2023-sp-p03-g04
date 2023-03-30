@@ -122,11 +122,14 @@ export const MenuSider = () => {
 	const siderStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
 		position: "sticky",
-		zIndex: 12,
+		top: 0,
+		zIndex: 100,
 	};
 	const menuStyle: React.CSSProperties = {
 		backgroundColor: "#fdba74",
 		position: "sticky",
+		top: "5vh",
+		zIndex: 4,
 	};
 
 	return (
@@ -139,6 +142,10 @@ export const MenuSider = () => {
 			>
 				<div
 					style={{
+						position: "sticky",
+						top: 0,
+						bottom: 12,
+						zIndex: 4,
 						height: 64,
 						margin: 0,
 						backgroundColor: "#3223d3",

@@ -1,3 +1,8 @@
 .input-label {
     font-size: 20px !important;
 }
+
+.form-input .ant-input .ant-select-selector{
+    border: 1px solid black !important;
+    width: 100% !important;
+}
