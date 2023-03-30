@@ -1,6 +1,6 @@
 import { theme, List, Card, Row, Col, Button } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { useState } from "react";
+import React, { useState } from "react";
 import { TbArrowNarrowRight } from "react-icons/tb";
 
 export const OneWayTicket = () => {
