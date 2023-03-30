@@ -3,6 +3,8 @@ import { useState } from "react";
 import { TbArrowsRightLeft } from "react-icons/tb";
 
 import "./RoundTripTicket.css";
+import "./TicketStyle.css";
+
 export const RoundTripTicket = () => {
 	const [isClicked, setIsClicked] = useState(false);
 
@@ -29,6 +31,7 @@ export const RoundTripTicket = () => {
 					<Row justify="space-between" align="middle">
 						<Col xs={24} md={8}>
 							<Card
+								className="ticket-card"
 								style={{
 									borderColor: "#333333",
 									textAlign: "center",

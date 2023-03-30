@@ -3,6 +3,8 @@ import { Header } from "antd/es/layout/layout";
 import React, { useState } from "react";
 import { TbArrowNarrowRight } from "react-icons/tb";
 
+import "./TicketStyle.css";
+
 export const OneWayTicket = () => {
 	const [isClicked, setIsClicked] = useState(false);
 
@@ -13,16 +15,8 @@ export const OneWayTicket = () => {
 		token: { colorBgContainer },
 	} = theme.useToken();
 
-	const cardStyle: React.CSSProperties = {
-		width: "100%",
-	};
+	const cardStyle: React.CSSProperties = {};
 	const buttonStyle: React.CSSProperties = {
-		display: "flex",
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "center",
-		height: "14vh",
-
 		background: isClicked ? "rgb(253,186,116)" : "initial",
 	};
 
@@ -33,6 +27,7 @@ export const OneWayTicket = () => {
 					<Row justify="space-between" align="middle">
 						<Col xs={24} md={8}>
 							<Card
+								className="ticket-card"
 								style={{
 									borderColor: "#333333",
 									textAlign: "center",
@@ -70,6 +65,7 @@ export const OneWayTicket = () => {
 						</Col>
 						<Col xs={24} md={7}>
 							<Card
+								className="ticket-card"
 								style={{
 									borderColor: "#333333",
 									textAlign: "center",

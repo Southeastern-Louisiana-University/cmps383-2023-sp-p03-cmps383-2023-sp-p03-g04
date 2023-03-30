@@ -55,6 +55,7 @@ export const TripInputForm = (props: FormProps) => {
 
 	const inputStyle: React.CSSProperties = {
 		width: "30vh",
+		borderWidth: 5,
 	};
 
 	useEffect(() => {
@@ -172,6 +173,7 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<DatePicker
+							className="form-input"
 							allowClear={false}
 							name="date-to"
 							style={inputStyle}
@@ -191,16 +193,18 @@ export const TripInputForm = (props: FormProps) => {
 			</Row>
 			<Form.Item name="ticket-type">
 				<Radio.Group
-					className="form-input"
 					buttonStyle="solid"
 					size="large"
 					defaultValue={defaultTicketType}
 					onChange={onRadioChange}
 				>
-					<Radio.Button className="form-input" value="One Way">
+					<Radio.Button className="form-input-radio" value="One Way">
 						One-Way
 					</Radio.Button>
-					<Radio.Button className="form-input" value="Round Trip">
+					<Radio.Button
+						className="form-input-radio"
+						value="Round Trip"
+					>
 						Round-Trip
 					</Radio.Button>
 				</Radio.Group>
