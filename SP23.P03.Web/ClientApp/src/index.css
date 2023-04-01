@@ -22,3 +22,14 @@ code {
 :root {
   --blue: #3223d3; 
 }
+
+.input-item .ant-select-selector {
+  border: 1px solid Grey !important;
+}
+
+.ant-input {
+  border: 1px solid Grey;
+  border-width: 3px;
+  border-radius: 12px;
+}
+

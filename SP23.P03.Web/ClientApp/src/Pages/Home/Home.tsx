@@ -30,7 +30,9 @@ export const HomePage = () => {
 		token: { colorBgContainer },
 	} = theme.useToken();
 
-	const cardStyle: React.CSSProperties = {};
+	const cardStyle: React.CSSProperties = {
+		border: "1px solid grey",
+	};
 
 	const onTabChange = (key: string) => {
 		setActiveTabKey(key);
