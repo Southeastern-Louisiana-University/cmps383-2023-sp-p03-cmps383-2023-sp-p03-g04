@@ -55,7 +55,15 @@ export const TripInputForm = (props: FormProps) => {
 
 	const inputStyle: React.CSSProperties = {
 		width: "30vh",
-		borderWidth: 5,
+		border: "2px solid grey",
+		borderRadius: 5,
+		borderWidth: 3,
+	};
+
+	const radioStyle: React.CSSProperties = {
+		border: "2px solid grey",
+		borderRadius: 5,
+		borderWidth: 3,
 	};
 
 	useEffect(() => {
@@ -173,7 +181,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<DatePicker
-							className="form-input"
 							allowClear={false}
 							name="date-to"
 							style={inputStyle}
@@ -195,18 +202,12 @@ export const TripInputForm = (props: FormProps) => {
 				<Radio.Group
 					buttonStyle="solid"
 					size="large"
+					style={radioStyle}
 					defaultValue={defaultTicketType}
 					onChange={onRadioChange}
 				>
-					<Radio.Button className="form-input-radio" value="One Way">
-						One-Way
-					</Radio.Button>
-					<Radio.Button
-						className="form-input-radio"
-						value="Round Trip"
-					>
-						Round-Trip
-					</Radio.Button>
+					<Radio.Button value="One Way">One-Way</Radio.Button>
+					<Radio.Button value="Round Trip">Round-Trip</Radio.Button>
 				</Radio.Group>
 			</Form.Item>
 			<Row>
@@ -224,7 +225,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<AutoComplete
-							className="form-input"
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
@@ -239,7 +239,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<AutoComplete
-							className="form-input"
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
@@ -254,7 +253,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<InputNumber
-							className="form-input"
 							size="large"
 							style={inputStyle}
 							name="passenger-number"
@@ -279,7 +277,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<DatePicker
-							className="form-input"
 							allowClear={false}
 							onChange={onFromDateChange}
 							style={inputStyle}
@@ -292,7 +289,6 @@ export const TripInputForm = (props: FormProps) => {
 				{renderDatePickerInput()}
 				<Col span={6}>
 					<Button
-						className="form-input"
 						type="primary"
 						htmlType="submit"
 						style={inputStyle}
