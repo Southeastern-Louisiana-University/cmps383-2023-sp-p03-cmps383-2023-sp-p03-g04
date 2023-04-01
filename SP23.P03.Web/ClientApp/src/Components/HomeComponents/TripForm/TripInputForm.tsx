@@ -66,6 +66,10 @@ export const TripInputForm = (props: FormProps) => {
 		borderWidth: 3,
 	};
 
+	const submitButtonStlye: React.CSSProperties = {
+		width: "30vh",
+	};
+
 	useEffect(() => {
 		const setToAddress = async () => {
 			const predictions = await getAddressCityCountry(addressToQuery);
@@ -291,7 +295,7 @@ export const TripInputForm = (props: FormProps) => {
 					<Button
 						type="primary"
 						htmlType="submit"
-						style={inputStyle}
+						style={submitButtonStlye}
 						size="large"
 					>
 						Submit
