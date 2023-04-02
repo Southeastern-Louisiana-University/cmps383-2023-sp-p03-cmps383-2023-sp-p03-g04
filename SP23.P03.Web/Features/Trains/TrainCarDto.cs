@@ -6,4 +6,10 @@
         public int TrainId { get; set; }
         public int Capacity { get; set; }
     }
+
+    public class TrainCarUpdateDto
+    {
+        public int Capacity { get; set; }
+        public int TicketsSold { get; set; }
+    }
 }

@@ -16,14 +16,17 @@ namespace SP23.P03.Web.Controllers
             _dataContext = dataContext;
         }
 
-        [HttpPost("{carrier}")]
-        public async Task<ActionResult<Carrier>> CreateCarrier(Carrier carrier)
+        [HttpPost]
+        public async Task<ActionResult<Carrier>> CreateCarrier(CarrierDto dto)
         {
-            var newCarrier = carrier;
-            await _dataContext.AddAsync(newCarrier);
+            Carrier carrier = new();
 
+            carrier.Name = dto.Name;
+
+            await _dataContext.AddAsync(carrier);
+            await _dataContext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), 
-                new { id = newCarrier.Id }, carrier);
+                new { id = carrier.Id }, carrier);
         }
 
         [HttpGet]
@@ -48,14 +51,14 @@ namespace SP23.P03.Web.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<Carrier>> UpdateCarrier(int id, Carrier updateCarrier)
+        public async Task<ActionResult<Carrier>> UpdateCarrier(int id, CarrierDto dto)
         {
-            var carrier = await _dataContext.Carrier.FindAsync(id);
+            var carrier = await _dataContext.Carrier.FirstOrDefaultAsync(x => x.Id == id);
 
             if (carrier == null)
                 return NotFound();
 
-            carrier.Name = updateCarrier.Name;
+            carrier.Name = dto.Name;
 
             await _dataContext.SaveChangesAsync();
 
@@ -65,7 +68,7 @@ namespace SP23.P03.Web.Controllers
         [Route("{id}")]
         public async Task<ActionResult> DeleteCarrier(int id)
         {
-            var carrier = await _dataContext.Carrier.FindAsync(id);
+            var carrier = await _dataContext.Carrier.FirstOrDefaultAsync(x => x.Id == id);
 
             if (carrier == null)
                 return NotFound();
