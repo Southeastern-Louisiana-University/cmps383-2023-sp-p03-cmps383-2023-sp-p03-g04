@@ -23,7 +23,7 @@ interface FormProps {
 	setCurrentStep: (step: number) => void;
 }
 
-interface TicketRequestData {
+interface TripFormData {
 	ticketType: string;
 	from: string;
 	to: string;
@@ -54,19 +54,6 @@ export const TripInputForm = (props: FormProps) => {
 	);
 
 	const inputStyle: React.CSSProperties = {
-		width: "100%",
-		border: "2px solid grey",
-		borderRadius: 12,
-		borderWidth: 3,
-	};
-
-	const radioStyle: React.CSSProperties = {
-		border: "2px solid grey",
-		borderRadius: 12,
-		borderWidth: 3,
-	};
-
-	const submitButtonStlye: React.CSSProperties = {
 		width: "30vh",
 	};
 
@@ -109,17 +96,17 @@ export const TripInputForm = (props: FormProps) => {
 		window.sessionStorage.setItem("from-city", details as string);
 	};
 
-	const data: TicketRequestData = {
-		from: selectedToDate!,
-		to: selectedFromDate!,
-		passengers: parseInt(sessionStorage.getItem("passengers")!),
-		ticketType: sessionStorage.getItem("ticket-type")!,
-		return: sessionStorage.getItem("to-city")!,
-		depart: sessionStorage.getItem("from-cty")!,
-	};
-
-	const onSubmit = () => {
+	const onSubmit = (values) => {
 		props.setCurrentStep(1);
+
+		const data: TripFormData = {
+			from: selectedToDate!,
+			to: selectedFromDate!,
+			passengers: parseInt(sessionStorage.getItem("passengers")!),
+			ticketType: sessionStorage.getItem("ticket-type")!,
+			return: sessionStorage.getItem("to-city")!,
+			depart: sessionStorage.getItem("from-cty")!,
+		};
 		props.onSubmit(data);
 	};
 
@@ -185,7 +172,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<DatePicker
-							className="trip-input"
 							allowClear={false}
 							name="date-to"
 							style={inputStyle}
@@ -199,16 +185,14 @@ export const TripInputForm = (props: FormProps) => {
 		}
 	};
 	return (
-		<Form onFinish={onSubmit} className="form-box">
+		<Form onFinish={onSubmit}>
 			<Row>
 				<label className="input-label">Ticket Type</label>
 			</Row>
 			<Form.Item name="ticket-type">
 				<Radio.Group
-					className="radio-group"
 					buttonStyle="solid"
 					size="large"
-					style={radioStyle}
 					defaultValue={defaultTicketType}
 					onChange={onRadioChange}
 				>
@@ -231,7 +215,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<AutoComplete
-							className="trip-input"
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
@@ -246,7 +229,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<AutoComplete
-							className="trip-input"
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
@@ -261,7 +243,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<InputNumber
-							className="trip-input"
 							size="large"
 							style={inputStyle}
 							name="passenger-number"
@@ -286,7 +267,6 @@ export const TripInputForm = (props: FormProps) => {
 				<Col span={6}>
 					<Form.Item>
 						<DatePicker
-							className="trip-input"
 							allowClear={false}
 							onChange={onFromDateChange}
 							style={inputStyle}
@@ -301,7 +281,7 @@ export const TripInputForm = (props: FormProps) => {
 					<Button
 						type="primary"
 						htmlType="submit"
-						style={submitButtonStlye}
+						style={inputStyle}
 						size="large"
 					>
 						Submit

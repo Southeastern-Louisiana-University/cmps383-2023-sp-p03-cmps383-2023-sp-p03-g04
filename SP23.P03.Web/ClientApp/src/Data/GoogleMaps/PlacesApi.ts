@@ -36,7 +36,6 @@ export const getAddressDetails = async (placeId: string) => {
             client_secret: SECRET,
             key: API_KEY,
             place_id: placeId,
-            region: "us"
         }
     }
     const client = new Client({})

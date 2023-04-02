@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../Authentication/AuthContext";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { getAddress, getAddressDetails } from "../../Data/GoogleMaps/PlacesApi";
-
-import "./RegistrationFormStyle.css";
-
 export const RegistrationForm = () => {
 	const auth = useAuth();
 	const [api, contextHolder] = notification.useNotification();
@@ -21,16 +18,7 @@ export const RegistrationForm = () => {
 	useEffect(() => {
 		const setAddress = async () => {
 			const predictions = await getAddress(addressQuery);
-			const details = await Promise.all(
-				predictions.map(async (prediction) => {
-					const detailsResponse = await getAddressDetails(
-						prediction.Id
-					);
-
-					return detailsResponse;
-				})
-			);
-			setAddressPredictions(details);
+			setAddressPredictions(predictions);
 		};
 
 		setAddress();
@@ -68,10 +56,16 @@ export const RegistrationForm = () => {
 	};
 	const options = addressPredictions!.map((option) => {
 		return {
-			label: option,
-			value: option,
+			label: option.description,
+			value: option.description,
 		};
 	});
+
+	const onSelect = async (data) => {
+		data = addressPredictions!.filter((pred) => pred.description === data);
+		const details = await getAddressDetails(data[0].Id);
+		setAddressValue(details as string);
+	};
 
 	type Registration = {
 		username: string;
@@ -111,15 +105,11 @@ export const RegistrationForm = () => {
 	};
 	return (
 		<div className="container">
-			<Form
-				validateMessages={validateMessages}
-				onFinish={tryRegister}
-				className="form-container"
-			>
+			<Form validateMessages={validateMessages} onFinish={tryRegister}>
 				{contextHolder}
 
 				<Form.Item
-					label={<span className="form-label">First Name</span>}
+					label="First Name"
 					name="firstname"
 					rules={[
 						{
@@ -131,11 +121,11 @@ export const RegistrationForm = () => {
 					labelCol={{ span: 3 }}
 					wrapperCol={{ span: 18 }}
 				>
-					<Input className="form-input" prefix={<UserOutlined />} />
+					<Input prefix={<UserOutlined />} />
 				</Form.Item>
 
 				<Form.Item
-					label={<span className="form-label">Last Name</span>}
+					label="Last Name"
 					name="lastname"
 					rules={[
 						{
@@ -147,11 +137,11 @@ export const RegistrationForm = () => {
 					labelCol={{ span: 3 }}
 					wrapperCol={{ span: 18 }}
 				>
-					<Input className="form-input" prefix={<UserOutlined />} />
+					<Input prefix={<UserOutlined />} />
 				</Form.Item>
 
 				<Form.Item
-					label={<span className="form-label">Address</span>}
+					label="Address"
 					name="address"
 					rules={[
 						{
@@ -164,21 +154,13 @@ export const RegistrationForm = () => {
 					wrapperCol={{ span: 18 }}
 				>
 					<AutoComplete
-						onSelect={(e) => setAddressValue(e)}
-						value={address}
+						options={options}
+						onSelect={onSelect}
 						onSearch={(text) => setAddressQuery(text)}
-					>
-						{options.map((option) => {
-							return (
-								<AutoComplete.Option value={option.value}>
-									{option.label}
-								</AutoComplete.Option>
-							);
-						})}
-					</AutoComplete>
+					/>
 				</Form.Item>
 				<Form.Item
-					label={<span className="form-label">Email</span>}
+					label="Email"
 					name="email"
 					rules={[
 						{
@@ -190,10 +172,10 @@ export const RegistrationForm = () => {
 					labelCol={{ span: 3 }}
 					wrapperCol={{ span: 18 }}
 				>
-					<Input className="form-input" prefix={<MailOutlined />} />
+					<Input prefix={<MailOutlined />} />
 				</Form.Item>
 				<Form.Item
-					label={<span className="form-label">Username</span>}
+					label="Username"
 					name="username"
 					rules={[
 						{
@@ -205,10 +187,10 @@ export const RegistrationForm = () => {
 					labelCol={{ span: 3 }}
 					wrapperCol={{ span: 18 }}
 				>
-					<Input className="form-input" prefix={<UserOutlined />} />
+					<Input prefix={<UserOutlined />} />
 				</Form.Item>
 				<Form.Item
-					label={<span className="form-label">Password</span>}
+					label="Password"
 					name="password"
 					rules={[
 						{
@@ -220,24 +202,14 @@ export const RegistrationForm = () => {
 					labelCol={{ span: 3 }}
 					wrapperCol={{ span: 18 }}
 				>
-					<Input
-						className="form-input"
-						type="password"
-						prefix={<LockOutlined />}
-					/>
+					<Input type="password" prefix={<LockOutlined />} />
 				</Form.Item>
 				<Form.Item wrapperCol={{ offset: 8, span: 20 }}>
 					<Button
 						type="primary"
 						htmlType="submit"
 						loading={isLoading}
-						style={{
-							display: "flex",
-							placeContent: "baseline center",
-							height: "100%",
-							width: "50%",
-							fontSize: 20,
-						}}
+						style={{ width: "10vw" }}
 					>
 						Register
 					</Button>

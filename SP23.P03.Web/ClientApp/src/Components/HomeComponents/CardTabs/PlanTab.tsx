@@ -26,6 +26,7 @@ export const PlanTab = () => {
 				<div className="timeline-card-header">
 					<Steps
 						className="steps"
+						progressDot
 						current={currentStep}
 						items={[
 							{

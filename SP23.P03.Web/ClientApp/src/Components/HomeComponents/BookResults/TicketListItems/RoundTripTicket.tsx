@@ -1,121 +1,94 @@
-import { Button, Descriptions, List, QRCode } from "antd";
+import { Button, Card, Col, List, Row } from "antd";
 import { useState } from "react";
+import { TbArrowsRightLeft } from "react-icons/tb";
 
 import "./RoundTripTicket.css";
-import "./TicketStyle.css";
+export const RoundTripTicket = () => {
+	const [isClicked, setIsClicked] = useState(false);
 
-interface Props {
-	setCurrentStep: (step: number) => void;
-}
+	const toStation = sessionStorage.getItem("to-city")!;
+	const fromStation = sessionStorage.getItem("from-city")!;
 
-export const RoundTripTicket = (props: Props) => {
-	const dateOptions: any = {
-		month: "2-digit",
-		day: "2-digit",
-		year: "numeric",
+	const cardStyle: React.CSSProperties = {
+		width: "100%",
 	};
-	const fromDate = new Date(
-		sessionStorage.getItem("selected-from-date")!
-	).toLocaleDateString("en-US", dateOptions);
-	console.log(fromDate);
-	const toDate = new Date(
-		sessionStorage.getItem("selected-to-date")!
-	).toLocaleDateString("en-US", dateOptions);
+	const buttonStyle: React.CSSProperties = {
+		display: "flex",
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "center",
+		height: "14vh",
 
-	const labelStyle = {
-		background: "darkgrey",
-	};
-
-	const back = () => {
-		props.setCurrentStep(1);
-	};
-
-	const next = () => {
-		props.setCurrentStep(2);
+		background: isClicked ? "rgb(253,186,116)" : "initial",
 	};
 
 	return (
 		<>
 			<List.Item>
-				<button className="button-select">
-					<Descriptions
-						className="outer-view"
-						bordered
-						labelStyle={labelStyle}
-					>
-						<Descriptions.Item
-							label="Price"
-							labelStyle={{ fontWeight: "bold" }}
-							span={12}
-							contentStyle={{
-								fontWeight: "bold",
-							}}
-						>
-							<p style={{ fontSize: "25px" }}>$100</p>
-						</Descriptions.Item>
-						<Descriptions.Item
-							label={fromDate}
-							labelStyle={{ fontWeight: "bold" }}
-							span={12}
-						>
-							<div className="inner-items">
-								<Descriptions
-									className="inner-view"
-									bordered
-									labelStyle={labelStyle}
-								>
-									<Descriptions.Item
-										label="Start"
-										className="desc-item"
+				<Card style={cardStyle} bordered={false}>
+					<Row justify="space-between" align="middle">
+						<Col xs={24} md={8}>
+							<Card
+								style={{
+									borderColor: "#333333",
+									textAlign: "center",
+									width: "25vh",
+								}}
+							>
+								<div className="card-body">
+									<h1 className="dest-text">Depart</h1>
+									<h1>{fromStation} at 5:30 AM</h1>
+									<h1 className="dest-text">Arrive</h1>
+									<h1>{toStation} at 11:00 AM</h1>
+								</div>
+							</Card>
+						</Col>
+						<Col xs={24} md={3} className="icon-style">
+							<TbArrowsRightLeft />
+						</Col>
+						<Col xs={24} md={7}>
+							<Card
+								style={{
+									borderColor: "#333333",
+									textAlign: "center",
+									width: "25vh",
+								}}
+							>
+								<div className="card-body">
+									<h1 className="dest-text">Depart</h1>
+									<h1>{toStation} at 5:30 AM</h1>
+									<h1 className="dest-text">Arrive</h1>
+									<h1>{fromStation} at 11:00 AM</h1>
+								</div>
+							</Card>
+						</Col>
+						<Col xs={24} md={6}>
+							<Button
+								className="ticket-button"
+								style={buttonStyle}
+								onClick={() => {
+									setIsClicked(!isClicked);
+								}}
+							>
+								<div className="ticket-info">
+									<p>$100</p>
+									<p className="row-avail">
+										Tickets Available
+									</p>
+
+									<p
+										style={{
+											fontStyle: "italic",
+											fontSize: 16,
+										}}
 									>
-										{sessionStorage.getItem("from-city")}
-									</Descriptions.Item>
-									<Descriptions.Item
-										label="Destination"
-										span={2}
-									>
-										{sessionStorage.getItem("to-city")}
-									</Descriptions.Item>
-									<Descriptions.Item label="Departure Time">
-										5:30 AM
-									</Descriptions.Item>
-									<Descriptions.Item label="Arrival Time">
-										5:30 AM
-									</Descriptions.Item>
-								</Descriptions>
-							</div>
-						</Descriptions.Item>
-						<Descriptions.Item
-							label={toDate}
-							labelStyle={{ fontWeight: "bold" }}
-							span={2}
-						>
-							<div className="inner-items">
-								<Descriptions
-									className="inner-view"
-									bordered
-									labelStyle={labelStyle}
-								>
-									<Descriptions.Item label="Start">
-										{sessionStorage.getItem("to-city")}
-									</Descriptions.Item>
-									<Descriptions.Item
-										label="Destination"
-										span={2}
-									>
-										{sessionStorage.getItem("from-city")}
-									</Descriptions.Item>
-									<Descriptions.Item label="Departure Time">
-										5:30 AM
-									</Descriptions.Item>
-									<Descriptions.Item label="Arrival Time">
-										5:30 AM
-									</Descriptions.Item>
-								</Descriptions>
-							</div>
-						</Descriptions.Item>
-					</Descriptions>
-				</button>
+										Click to select
+									</p>
+								</div>
+							</Button>
+						</Col>
+					</Row>
+				</Card>
 			</List.Item>
 		</>
 	);

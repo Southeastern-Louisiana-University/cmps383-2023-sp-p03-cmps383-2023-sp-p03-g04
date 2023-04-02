@@ -6,8 +6,6 @@ import { Content, Header } from "antd/es/layout/layout";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./Pages/Home/Home";
 
-import "./App.css";
-
 const App = () => {
 	const router = createBrowserRouter([
 		{
@@ -26,6 +24,7 @@ const App = () => {
 							paddingLeft: 0,
 							background: "#3223d3",
 							position: "sticky",
+							zIndex: 9999,
 						}}
 					/>
 					<Content

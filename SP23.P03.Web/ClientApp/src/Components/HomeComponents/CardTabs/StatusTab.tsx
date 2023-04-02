@@ -34,7 +34,7 @@ export const StatusTab = () => {
 						}}
 					>
 						<Col span={6}>
-							<Input className="input-item" name="ticket-id" />
+							<Input name="ticket-id" />
 						</Col>
 					</Row>
 					<Row

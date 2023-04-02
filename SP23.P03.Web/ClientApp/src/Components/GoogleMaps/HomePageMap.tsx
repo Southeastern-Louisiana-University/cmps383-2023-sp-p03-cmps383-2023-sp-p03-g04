@@ -7,8 +7,8 @@ import {
 	InfoWindow,
 	Marker,
 } from "@react-google-maps/api";
-import { getAddressGeoLocation } from "../../Data/GoogleMaps/PlacesApi";
 import { RouteLocationItem } from "../../Data/Types/GoogleMapsTypes";
+import { getAddressGeoLocation } from "../../Data/GoogleMaps/PlacesApi";
 
 export const HomePageMap = () => {
 	const [route, setRoute] = useState<any>(null as any);
