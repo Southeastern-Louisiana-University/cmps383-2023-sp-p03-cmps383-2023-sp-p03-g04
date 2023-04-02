@@ -23,7 +23,7 @@ interface FormProps {
 	setCurrentStep: (step: number) => void;
 }
 
-interface TripFormData {
+interface TicketRequestData {
 	ticketType: string;
 	from: string;
 	to: string;
@@ -109,17 +109,17 @@ export const TripInputForm = (props: FormProps) => {
 		window.sessionStorage.setItem("from-city", details as string);
 	};
 
-	const onSubmit = (values) => {
-		props.setCurrentStep(1);
+	const data: TicketRequestData = {
+		from: selectedToDate!,
+		to: selectedFromDate!,
+		passengers: parseInt(sessionStorage.getItem("passengers")!),
+		ticketType: sessionStorage.getItem("ticket-type")!,
+		return: sessionStorage.getItem("to-city")!,
+		depart: sessionStorage.getItem("from-cty")!,
+	};
 
-		const data: TripFormData = {
-			from: selectedToDate!,
-			to: selectedFromDate!,
-			passengers: parseInt(sessionStorage.getItem("passengers")!),
-			ticketType: sessionStorage.getItem("ticket-type")!,
-			return: sessionStorage.getItem("to-city")!,
-			depart: sessionStorage.getItem("from-cty")!,
-		};
+	const onSubmit = () => {
+		props.setCurrentStep(1);
 		props.onSubmit(data);
 	};
 

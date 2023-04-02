@@ -40,7 +40,7 @@ export const BookResults = (props: BookingProps) => {
 				</h1>
 			</Header>
 			<Divider style={{ border: "1px solid black" }} />
-			<TicketListItem />
+			<TicketListItem setCurrentStep={props.setCurrentStep} />
 		</>
 	);
 };
