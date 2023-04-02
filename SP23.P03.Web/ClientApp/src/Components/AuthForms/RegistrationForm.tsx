@@ -22,7 +22,7 @@ export const RegistrationForm = () => {
 		const setAddress = async () => {
 			const predictions = await getAddress(addressQuery);
 			const details = await Promise.all(
-				predictions.map(async (prediction) => {
+				predictions!.map(async (prediction) => {
 					const detailsResponse = await getAddressDetails(
 						prediction.Id
 					);

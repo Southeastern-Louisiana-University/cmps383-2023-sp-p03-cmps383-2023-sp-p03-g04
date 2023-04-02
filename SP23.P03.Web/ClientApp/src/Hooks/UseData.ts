@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { Api } from "../Config";
 
-export const useApiData = (endpoint: string) => {
+export const useApiData = <TDataType>(endpoint: string) => {
 	const [data, setData] = useState<any | null | undefined>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<Error | null | undefined>(null);
@@ -9,7 +9,7 @@ export const useApiData = (endpoint: string) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await Api.get(endpoint);
+				const response = await Api.get<TDataType>(endpoint);
 				setData(response.data);
 			} catch (error) {
 				setError(error as Error | null);

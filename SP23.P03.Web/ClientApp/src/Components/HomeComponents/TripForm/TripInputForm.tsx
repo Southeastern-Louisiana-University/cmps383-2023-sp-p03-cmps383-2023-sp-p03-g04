@@ -73,13 +73,19 @@ export const TripInputForm = (props: FormProps) => {
 	useEffect(() => {
 		const setToAddress = async () => {
 			const predictions = await getAddressCityCountry(addressToQuery);
-			setAddressToPredictions(predictions);
+
+			if (predictions !== undefined) {
+				setAddressToPredictions(predictions);
+			}
 		};
 
 		setToAddress();
 		const setFromAddress = async () => {
 			const predictions = await getAddressCityCountry(addressFromQuery);
-			setAddressFromPredictions(predictions);
+
+			if (predictions !== undefined) {
+				setAddressFromPredictions(predictions);
+			}
 		};
 		const setTicketType = () => {
 			setRadioLoading(true);
