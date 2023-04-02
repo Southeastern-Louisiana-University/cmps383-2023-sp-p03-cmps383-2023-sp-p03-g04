@@ -1,4 +1,4 @@
-import { Card, Layout, QRCode, theme } from "antd";
+import { Card, Layout, theme } from "antd";
 import "antd/dist/reset.css";
 import { Header, Content } from "antd/es/layout/layout";
 import React, { useState } from "react";
@@ -34,12 +34,6 @@ export const HomePage = () => {
 		border: "1px solid grey",
 	};
 
-	const obj = {
-		yes: "ues",
-		yes1: "yes",
-		yes2: "yesefs",
-	};
-
 	const onTabChange = (key: string) => {
 		setActiveTabKey(key);
 		if (key === "plan") {
@@ -68,8 +62,6 @@ export const HomePage = () => {
 					<h1 className="trip-header-text">{header}</h1>
 				</Header>
 				<Content>
-					<QRCode value={JSON.stringify(obj)} />
-					<QRCode value="w" />
 					<Card
 						bordered={true}
 						style={cardStyle}

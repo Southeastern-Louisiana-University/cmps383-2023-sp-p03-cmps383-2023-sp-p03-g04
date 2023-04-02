@@ -16,21 +16,8 @@ export const OneWayTicket = (props: Props) => {
 	const fromDate = new Date(
 		sessionStorage.getItem("selected-from-date")!
 	).toLocaleDateString("en-US", dateOptions);
-	console.log(fromDate);
-	const toDate = new Date(
-		sessionStorage.getItem("selected-to-date")!
-	).toLocaleDateString("en-US", dateOptions);
-
 	const labelStyle = {
 		background: "darkgrey",
-	};
-
-	const back = () => {
-		props.setCurrentStep(1);
-	};
-
-	const next = () => {
-		props.setCurrentStep(2);
 	};
 
 	return (
