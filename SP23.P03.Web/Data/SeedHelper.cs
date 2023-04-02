@@ -11,7 +11,6 @@ public static class SeedHelper
     public static async Task MigrateAndSeed(IServiceProvider serviceProvider)
     {
         var dataContext = serviceProvider.GetRequiredService<DataContext>();
-
         await dataContext.Database.MigrateAsync();
 
         await AddRoles(serviceProvider);
@@ -77,18 +76,47 @@ public static class SeedHelper
 
         if (await trainStations.AnyAsync())
         {
-            return;
+            trainStations.RemoveRange(trainStations);
+            await dataContext.SaveChangesAsync();
         }
 
-        for (int i = 0; i < 3; i++)
-        {
-            dataContext.Set<TrainStation>()
-                .Add(new TrainStation
+        dataContext.Set<TrainStation>()
+            .AddRange(
+                new TrainStation
                 {
                     Name = "Hammond",
-                    Address = "1234 Place st"
-                });
-        }
+                    TrainStationAddress = new()
+                    {
+                        City = "Hammond",
+                        State = "LA",
+                        ZipCode = "70401",
+                        Street = "4 Golden Drive"
+                    }
+                },
+                new TrainStation
+                {
+                    Name = "New Orleans",
+                    TrainStationAddress = new()
+                    {
+                        City = "New Orleans",
+                        State = "LA",
+                        ZipCode = "70118",
+                        Street = "1101 Foucher St"
+                    }
+                },
+                new TrainStation
+                {
+                    Name = "Baton Rouge",
+                    TrainStationAddress = new()
+                    {
+                        City = "Baton Rouge",
+                        State = "LA",
+                        ZipCode = "70810",
+                        Street = "S Glenstone Pl"
+                    }
+
+                }
+            );
 
         await dataContext.SaveChangesAsync();
     }

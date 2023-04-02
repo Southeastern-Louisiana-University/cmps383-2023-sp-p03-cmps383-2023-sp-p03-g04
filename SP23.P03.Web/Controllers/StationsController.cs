@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SP23.P03.Web.Data;
 using SP23.P03.Web.Extensions;
+using SP23.P03.Web.Features.Address;
 using SP23.P03.Web.Features.Authorization;
 using SP23.P03.Web.Features.TrainStations;
 
@@ -49,10 +50,21 @@ public class StationsController : ControllerBase
             return BadRequest();
         }
 
+        //var addressDto = dto.TrainStationAddress;
+
+        //var address = new TrainStationAddress
+        //{
+        //    City = addressDto.City,
+        //    State = addressDto.State,
+        //    ZipCode = addressDto.ZipCode,
+        //    Street = addressDto.Street,
+        //};
+
+  
         var station = new TrainStation
         {
             Name = dto.Name,
-            Address = dto.Address,
+            TrainStationAddress = dto.TrainStationAddress,
             ManagerId = dto.ManagerId,
         };
         stations.Add(station);
@@ -86,14 +98,13 @@ public class StationsController : ControllerBase
         }
 
         station.Name = dto.Name;
-        station.Address = dto.Address;
+        station.TrainStationAddress = dto.TrainStationAddress;
         if (User.IsInRole(RoleNames.Admin))
         {
             station.ManagerId = dto.ManagerId;
         }
 
         dataContext.SaveChanges();
-
         dto.Id = station.Id;
 
         return Ok(dto);
@@ -126,7 +137,7 @@ public class StationsController : ControllerBase
     {
         return string.IsNullOrWhiteSpace(dto.Name) ||
                dto.Name.Length > 120 ||
-               string.IsNullOrWhiteSpace(dto.Address) ||
+
                InvalidManagerId(dto.ManagerId);
     }
 
@@ -148,11 +159,12 @@ public class StationsController : ControllerBase
     private static IQueryable<TrainStationDto> GetTrainStationDtos(IQueryable<TrainStation> stations)
     {
         return stations
+            .Include(x => x.TrainStationAddress)
             .Select(x => new TrainStationDto
             {
                 Id = x.Id,
                 Name = x.Name,
-                Address = x.Address,
+                TrainStationAddress = x.TrainStationAddress,
                 ManagerId = x.ManagerId,
             });
     }

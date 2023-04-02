@@ -21,13 +21,15 @@ namespace SP23.P03.Web.Controllers
         public async Task<ActionResult<Train>> Create(TrainDto dto)
         {
 
-            Train train = new();
-
-            train.CarrierId = dto.CarrierId;
-            train.ArrivingStationId = dto.ArrivingStationId;
-            train.DepartingStationId = dto.DepartingStationId;
-            train.ArrivalTime = dto.ArrivalTime;
-            train.DepartureTime = dto.DepartureTime;
+            var train = new Train
+            {
+                CarrierId = dto.CarrierId,
+                ArrivingStationId = dto.ArrivingStationId,
+                DepartingStationId = dto.DepartingStationId,
+                ArrivalTime = dto.ArrivalTime,
+                DepartureTime = dto.DepartureTime,
+                Status = "Ready"
+            };
 
             await _dataContext.Train.AddAsync(train);
             await _dataContext.SaveChangesAsync();
@@ -38,12 +40,23 @@ namespace SP23.P03.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Train>>> GetAll()
         {
-            return Ok(await _dataContext.Train
-                 .Include(x => x.Carrier)
-                 .Include(x => x.TrainCars)
-                 .Include(x => x.DepartingStation)
-                 .Include(x => x.ArrivingStation)
-                 .ToListAsync());
+           var trains = await _dataContext.Train
+                .Include(x => x.Carrier)
+                .Include(x => x.ArrivingStation)
+                    .ThenInclude(t => t.TrainStationAddress)
+                .Include(x => x.DepartingStation)
+                    .ThenInclude(t => t.TrainStationAddress)
+                .Include(x => x.TrainCars)
+                .Select(x => new
+                {
+                    x.Id,
+                    CarrierName = x.Carrier.Name,
+                    DepartingStationAddress = x.DepartingStation.TrainStationAddress,
+                    ArrivingStationAddress = x.ArrivingStation.TrainStationAddress,
+                    TrainCarAmount = x.TrainCars.Count
+                }).ToListAsync();
+
+            return Ok(trains);
         }
 
         [HttpGet("{id}")]
@@ -53,7 +66,22 @@ namespace SP23.P03.Web.Controllers
             {
                 return BadRequest();
             }
-            var train = await _dataContext.Train.FirstOrDefaultAsync(x => x.Id == id);
+
+            var trains = _dataContext.Train
+                .Include(x => x.Carrier)
+                .Include(x => x.ArrivingStation)
+                .Include(x => x.DepartingStation)
+                .Include(x => x.TrainCars)
+                .Select(x => new
+                {
+                    x.Id,
+                    CarrierName = x.Carrier.Name,
+                    DepartingStationAddress = x.DepartingStation.TrainStationAddress,
+                    ArrivingStationAddress = x.ArrivingStation.TrainStationAddress,
+                    TrainCarAmount = x.TrainCars.Count
+                });
+
+            var train = trains.FirstOrDefaultAsync(x => x.Id == id);
 
             return train == null ? NotFound() : Ok(train);
         }

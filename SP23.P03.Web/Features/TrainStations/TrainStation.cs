@@ -11,13 +11,9 @@ public class TrainStation
 
     public string Name { get; set; } = string.Empty;
 
-    public string Address { get; set; } = string.Empty;
-
     public int? ManagerId { get; set; }
 
-    [ForeignKey("TrainStationAddressId")]
-    public int TrainStationAddressId { get; set; }
-
+    
     public virtual TrainStationAddress TrainStationAddress { get; set; }
 
     public virtual User? Manager { get; set; }

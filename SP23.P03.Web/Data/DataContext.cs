@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SP23.P03.Web.Features;
+using SP23.P03.Web.Features.Address;
 using SP23.P03.Web.Features.Authorization;
 using SP23.P03.Web.Features.Carriers;
 using SP23.P03.Web.Features.Trains;
@@ -18,6 +19,7 @@ public class DataContext : IdentityDbContext<User, Role, int, IdentityUserClaim<
     public DbSet<TrainCar> TrainCar { get; set; }
     public DbSet<TrainCarType> TrainCarType { get; set; }
     public DbSet<Carrier> Carrier { get; set; }
+    public DbSet<TrainStationAddress> TrainStationAddress { get; set; }
 
     public DataContext()
     {
