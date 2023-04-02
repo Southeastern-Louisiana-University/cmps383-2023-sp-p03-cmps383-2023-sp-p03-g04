@@ -9,7 +9,7 @@ public class TrainStationDto
 
     public string Name { get; set; } = string.Empty;
 
-    public TrainStationAddress StationAddress { get; set; }
+    public TrainStationAddress TrainStationAddress { get; set; }
 
     public int? ManagerId { get; set; }
 }
