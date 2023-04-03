@@ -1,8 +1,8 @@
 export default{
-    gradientForm:'ff930f',
+    gradientForm:'#ff930f',
     primary:'#FDBA74',
-    secondary:'fff95b',
-    tertiary: '505da0',
+    secondary:'#fff95b',
+    tertiary: '#6366f1',
     white: '#FFFFFF',
     dark: '#444',
     bgColor: '#82ccdd',

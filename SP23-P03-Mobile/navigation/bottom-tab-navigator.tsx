@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {StyleSheet} from 'react-native';
 import BookingScreen from '../screens/booking-screen/booking-screen';
 import HomeScreen from "../screens/home-screen/home-screen";
 import StatusScreen from "../screens/status-screen/status-screen";
@@ -15,6 +16,8 @@ const BottomTabNavigator = ()=>{
       <Tab.Navigator 
         screenOptions={({route}) => ({
           headerShown:false,
+          tabBarStyle: styles.tabBarStyle,
+          tabBarInactiveTintColor: COLORS.white,
           tabBarActiveTintColor: COLORS.primary,
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
@@ -40,3 +43,12 @@ const BottomTabNavigator = ()=>{
 
 
 export default BottomTabNavigator;
+
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    position:'absolute',
+    backgroundColor: COLORS.tertiary,
+    borderTopWidth: 0,
+
+  },
+});
