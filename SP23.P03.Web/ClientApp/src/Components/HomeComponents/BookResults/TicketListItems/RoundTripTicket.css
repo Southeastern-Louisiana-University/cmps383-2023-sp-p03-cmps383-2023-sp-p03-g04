@@ -1,18 +1,40 @@
-.card-body {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.button-select {
+    width: 100%;
+    border: none;
+    height: 100%;
 }
 
-.dest-text {
-    font-weight: bold;
-    font-size: 13;
+div.inner-view .ant-descriptions-view {
+    border: 2px solid black !important;
+    border-radius: 5px !important;
+    z-index: 100;
 }
 
+.outer-view .ant-descriptions-view {
+    border: 1px solid grey !important;
+}
 
-.icon-style {
-    font-size: 40px;
-    display: flex;
-    justify-content: left;
-    align-content: baseline;
+.ant-descriptions-item-label {
+    font-size: 20px !important;
+
+}
+.ant-descriptions-item-content {
+    font-size: 20px !important;
+}
+
+.inner-items {
+    width: 100%;
+}
+.inner-items .ant-descriptions-item-label {
+    padding-left: 50px !important 
+}
+
+.inner-items .ant-descriptions-item-content {
+    width: 30% !important;
+    margin-left: 10px !important 
+}
+
+.outer-view:hover {
+    background-color: lightgreen;
+    cursor: pointer;
 }

@@ -1,3 +1,9 @@
 .ant-steps-item-process .ant-steps-item-icon {
     background-color: rgb(253,186,116);
 }
+
+.ant-steps-item-title::before {
+    background-color: rgb(81, 73, 73) !important;
+    border-width: 10px;
+}
+
