@@ -8,4 +8,6 @@ export default{
 
     BOOKING: 'Booking',
     STATUS: 'Status',
+    CHECKIN: 'Check In',
+    NOTIFICATIONS: 'Notifications'
 };
