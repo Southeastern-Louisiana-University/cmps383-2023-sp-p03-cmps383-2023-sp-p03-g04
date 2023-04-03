@@ -5,8 +5,7 @@ import HomeScreen from "../screens/home-screen/home-screen";
 import StatusScreen from "../screens/status-screen/status-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import {ROUTES} from '../constants';
-import { Entypo } from '@expo/vector-icons';
-import { Icon } from "native-base";
+import Icon from 'react-native-vector-icons/Ionicons'
 
 const Tab = createBottomTabNavigator();
 
@@ -22,12 +21,12 @@ const BottomTabNavigator = ()=>{
             if(route.name === ROUTES.HOME_TAB){
               iconName = focused ? 'home':'home-outline';
             } else if(route.name ===ROUTES.BOOKING){
-              iconName = focused ? 'aircraft':'aircraft-outline';
+              iconName = focused ? 'airplane':'airplane-outline';
             } else if(route.name === ROUTES.STATUS){
-              iconName = focused ? 'clock':'clock-outline';
+              iconName = focused ? 'time':'time-outline';
             }
 
-            return <Icon as={Entypo} name={iconName} size={22} color={color}/>
+            return <Icon name={iconName} size={22} color={color}/>
           },
         })}>
         <Tab.Screen name={ROUTES.HOME_TAB} component={HomeScreen} />
