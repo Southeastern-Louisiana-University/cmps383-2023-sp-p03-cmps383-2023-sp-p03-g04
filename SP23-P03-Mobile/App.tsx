@@ -9,7 +9,7 @@ import AuthNavigator from "./navigation/auth-navigator";
 const App =() => {
   return (
     <NativeBaseProvider>
-     
+      
       <BottomTabNavigator/>
     </NativeBaseProvider>
   );
