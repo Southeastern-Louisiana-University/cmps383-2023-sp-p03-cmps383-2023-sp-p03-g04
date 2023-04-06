@@ -5,6 +5,7 @@ import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { getAddress, getAddressDetails } from "../../Data/GoogleMaps/PlacesApi";
 
 import "./RegistrationFormStyle.css";
+import { getAzureAddress } from "../../Data/AzureMaps/AzureMapApi";
 
 export const RegistrationForm = () => {
 	const auth = useAuth();
@@ -33,7 +34,12 @@ export const RegistrationForm = () => {
 			setAddressPredictions(details);
 		};
 
-		setAddress();
+		const setNewAddress = async () => {
+			const predictions = await getAzureAddress(addressQuery);
+			setAddressPredictions(predictions);
+		}
+		setNewAddress();
+		//setAddress();
 	}, [addressQuery, address]);
 
 	notification.config({
@@ -61,17 +67,19 @@ export const RegistrationForm = () => {
 			});
 		}
 	};
-
+	
 	const validateMessages = {
 		// eslint-disable-next-line no-template-curly-in-string
 		required: "${label} is required",
 	};
-	const options = addressPredictions!.map((option) => {
+	let options = addressPredictions?.map((option) => {
 		return {
 			label: option,
 			value: option,
 		};
 	});
+
+	options = [...new Set(options)]
 
 	type Registration = {
 		username: string;
@@ -168,7 +176,7 @@ export const RegistrationForm = () => {
 						value={address}
 						onSearch={(text) => setAddressQuery(text)}
 					>
-						{options.map((option) => {
+						{options?.map((option) => {
 							return (
 								<AutoComplete.Option value={option.value}>
 									{option.label}
