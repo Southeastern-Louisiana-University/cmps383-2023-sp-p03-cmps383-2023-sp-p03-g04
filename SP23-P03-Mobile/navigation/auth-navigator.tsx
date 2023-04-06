@@ -2,20 +2,18 @@ import React from 'react';
 import LoginScreen from '../screens/login-screen/login-screen';
 import {ROUTES} from '../constants';
 import { NavigationContainer } from '@react-navigation/native';
-import BottomTabNavigator from "../navigation/bottom-tab-navigator";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import DrawerNavigator from './drawer-navigator';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Drawer = createDrawerNavigator();
+
+const Stack = createStackNavigator();
 
 function AuthNavigator() {
-   
+   console.log(Stack);
   return (
     <NavigationContainer>
-    <Drawer.Navigator>
-      
-      <Drawer.Screen name={ROUTES.HOME} component={DrawerNavigator} options={{headerShown:false}}/>
-    </Drawer.Navigator>
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen}/>
+    </Stack.Navigator>
     </NavigationContainer>
   );
 }
