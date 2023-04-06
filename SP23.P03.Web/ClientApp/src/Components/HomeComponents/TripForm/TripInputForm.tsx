@@ -19,7 +19,7 @@ import "./TripInputStyle.css";
 import dayjs from "dayjs";
 
 interface FormProps {
-	onSubmit: (data) => void;
+	setTicketData: (data) => void;
 	setCurrentStep: (step: number) => void;
 }
 
@@ -126,7 +126,7 @@ export const TripInputForm = (props: FormProps) => {
 
 	const onSubmit = () => {
 		props.setCurrentStep(1);
-		props.onSubmit(data);
+		props.setTicketData(data);
 	};
 
 	const toOptions = addressToPredictions.map((option) => {

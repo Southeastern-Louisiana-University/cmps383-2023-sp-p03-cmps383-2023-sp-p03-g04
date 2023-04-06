@@ -6,9 +6,20 @@ import "./PlanTabStyle.css";
 import { useState } from "react";
 import { HomePageMap } from "../../GoogleMaps/HomePageMap";
 
+interface TicketRequestData {
+	ticketType: string;
+	from: string;
+	to: string;
+	passengers: number;
+	depart: string;
+	return: string;
+}
+
 export const PlanTab = () => {
 	const [currentStep, setCurrentStep] = useState(0);
-	const onSubmitTrip = () => {};
+	const [ticketData, setTicketData] = useState<TicketRequestData>(
+		null as any
+	);
 	return (
 		<>
 			<ConfigProvider
@@ -42,7 +53,7 @@ export const PlanTab = () => {
 				</div>
 				{currentStep === 0 && (
 					<TripInputForm
-						onSubmit={onSubmitTrip}
+						setTicketData={setTicketData}
 						setCurrentStep={setCurrentStep}
 					/>
 				)}
@@ -50,7 +61,7 @@ export const PlanTab = () => {
 					<>
 						<HomePageMap />
 						<BookResults
-							onSubmit={onSubmitTrip}
+							ticketData={ticketData}
 							setCurrentStep={setCurrentStep}
 						/>
 					</>
