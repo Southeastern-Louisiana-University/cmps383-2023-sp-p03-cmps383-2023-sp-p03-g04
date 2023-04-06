@@ -3048,13 +3048,6 @@ azure-maps-control@2.0.32:
   dependencies:
     "@types/adal-angular" "^1.0.1"
 
-azure-maps-control@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-2.2.6.tgz#b047a38a97183c0a76196d6005518f407fb2e52d"
-  integrity sha512-ZVVwcymuUGF8UiOxXzTFpydX4I2lgritmDFIK2YDtSCK+XOCbYCUrSMuems5wQGJ9OF2JNO7GLBGslptmmutGw==
-  dependencies:
-    "@types/adal-angular" "^1.0.1"
-
 babel-jest@^27.4.2, babel-jest@^27.5.1:
   version "27.5.1"
   resolved "https://registry.npmjs.org/babel-jest/-/babel-jest-27.5.1.tgz"

@@ -5,6 +5,7 @@ import { BookResults } from "../BookResults/BookResults";
 import "./PlanTabStyle.css";
 import { useState } from "react";
 import { HomePageMap } from "../../GoogleMaps/HomePageMap";
+import { AzureMapDisplay } from "../../GoogleMaps/AzureDisplayMap";
 
 interface TicketRequestData {
 	ticketType: string;
@@ -59,7 +60,7 @@ export const PlanTab = () => {
 				)}
 				{currentStep === 1 && (
 					<>
-						<HomePageMap />
+						<AzureMapDisplay />
 						<BookResults
 							ticketData={ticketData}
 							setCurrentStep={setCurrentStep}
