@@ -8,15 +8,12 @@ import {
 	Col,
 	Button,
 	Spin,
+	Select,
 } from "antd";
 import { useEffect, useState } from "react";
-import {
-	getAddressCityCountry,
-	getAddressDetails,
-} from "../../../Data/GoogleMaps/PlacesApi";
-
 import "./TripInputStyle.css";
 import dayjs from "dayjs";
+import { getCity, reverseLocate } from "../../../Data/AzureMaps/AzureMapApi";
 
 interface FormProps {
 	setTicketData: (data) => void;
@@ -37,12 +34,12 @@ export const TripInputForm = (props: FormProps) => {
 	const [addressToPredictions, setAddressToPredictions] = useState(
 		[] as any[]
 	);
-	const [addressTo, setAddressToValue] = useState("");
+	const [addressToValue, setAddressToValue] = useState("");
 	const [addressFromQuery, setAddressFromQuery] = useState("");
 	const [addressFromPredictions, setAddressFromPredictions] = useState(
 		[] as any[]
 	);
-	const [addressFrom, setAddressFromValue] = useState("");
+	const [addressFromValue, setAddressFromValue] = useState("");
 	const [radioValue, setRadioValue] = useState("");
 	const [radioLoading, setRadioLoading] = useState(false);
 
@@ -72,20 +69,20 @@ export const TripInputForm = (props: FormProps) => {
 
 	useEffect(() => {
 		const setToAddress = async () => {
-			const predictions = await getAddressCityCountry(addressToQuery);
-
-			if (predictions !== undefined) {
+			setAddressToPredictions([]);
+			setTimeout(async () => {
+				const predictions = await getCity(addressToQuery);
 				setAddressToPredictions(predictions);
-			}
+			});
 		};
 
 		setToAddress();
 		const setFromAddress = async () => {
-			const predictions = await getAddressCityCountry(addressFromQuery);
-
-			if (predictions !== undefined) {
+			setAddressFromPredictions([]);
+			setTimeout(async () => {
+				const predictions = await getCity(addressFromQuery);
 				setAddressFromPredictions(predictions);
-			}
+			});
 		};
 		const setTicketType = () => {
 			setRadioLoading(true);
@@ -96,23 +93,22 @@ export const TripInputForm = (props: FormProps) => {
 		};
 		setTicketType();
 		setFromAddress();
-	}, [addressToQuery, addressTo, addressFromQuery, addressFrom]);
+	}, [addressToQuery, addressToValue, addressFromQuery, addressFromValue]);
 
-	const onSelectTo = async (data) => {
-		data = addressToPredictions!.filter(
-			(pred) => pred.description === data
-		);
-		const details = await getAddressDetails(data[0].Id);
-		setAddressToValue(details as string);
-		window.sessionStorage.setItem("to-city", details as string);
+	const onSelectTo = async (data: string) => {
+		sessionStorage.setItem("to-lat", data.split(",")[1].trim());
+		sessionStorage.setItem("to-lon", data.split(",")[1].trim());
+
+		const val = await reverseLocate(data);
+		setAddressToValue(val);
+		window.sessionStorage.setItem("to-city", val as string);
 	};
-	const onSelectFrom = async (data) => {
-		data = addressFromPredictions!.filter(
-			(pred) => pred.description === data
-		);
-		const details = await getAddressDetails(data[0].Id);
-		setAddressFromValue(details as string);
-		window.sessionStorage.setItem("from-city", details as string);
+	const onSelectFrom = async (data: string) => {
+		sessionStorage.setItem("from-lat", data.split(",")[0].trim());
+		sessionStorage.setItem("from-lon", data.split(",")[1].trim());
+		const val = await reverseLocate(data);
+		setAddressFromValue(val);
+		window.sessionStorage.setItem("from-city", val as string);
 	};
 
 	const data: TicketRequestData = {
@@ -131,17 +127,16 @@ export const TripInputForm = (props: FormProps) => {
 
 	const toOptions = addressToPredictions.map((option) => {
 		return {
-			label: option.description,
-			value: option.description,
+			label: option.address.freeformAddress,
+			value: `${option.position.lat}, ${option.position.lon}`,
 		};
 	});
 	const fromOptions = addressFromPredictions.map((option) => {
 		return {
-			label: option.description,
-			value: option.description,
+			label: option.address.freeformAddress,
+			value: `${option.position.lat}, ${option.position.lon}`,
 		};
 	});
-
 	const onRadioChange = (e) => {
 		sessionStorage.setItem("ticket-type", e.target.value);
 		setRadioValue(e.target.value);
@@ -241,14 +236,19 @@ export const TripInputForm = (props: FormProps) => {
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
+							value={addressFromValue}
 							size="large"
 							options={fromOptions}
 							onSelect={onSelectFrom}
-							onSearch={(text) => setAddressFromQuery(text)}
+							onSearch={(text) => {
+								setAddressFromValue(text);
+								setAddressFromQuery(text);
+							}}
 							defaultValue={defaultFromCity}
 						/>
 					</Form.Item>
 				</Col>
+
 				<Col span={6}>
 					<Form.Item>
 						<AutoComplete
@@ -256,10 +256,14 @@ export const TripInputForm = (props: FormProps) => {
 							placeholder="Enter City"
 							allowClear
 							style={inputStyle}
+							value={addressToValue}
 							size="large"
 							options={toOptions}
 							onSelect={onSelectTo}
-							onSearch={(text) => setAddressToQuery(text)}
+							onSearch={(text) => {
+								setAddressToValue(text);
+								setAddressToQuery(text);
+							}}
 							defaultValue={defaultToCity}
 						/>
 					</Form.Item>
