@@ -2,8 +2,6 @@ import { AutoComplete, Button, Form, Input, Modal, notification } from "antd";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../Authentication/AuthContext";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import { getAddress, getAddressDetails } from "../../Data/GoogleMaps/PlacesApi";
-
 import "./RegistrationFormStyle.css";
 import { getAzureAddress } from "../../Data/AzureMaps/AzureMapApi";
 
@@ -20,26 +18,13 @@ export const RegistrationForm = () => {
 	const [address, setAddressValue] = useState("");
 
 	useEffect(() => {
-		const setAddress = async () => {
-			const predictions = await getAddress(addressQuery);
-			const details = await Promise.all(
-				predictions!.map(async (prediction) => {
-					const detailsResponse = await getAddressDetails(
-						prediction.Id
-					);
-
-					return detailsResponse;
-				})
-			);
-			setAddressPredictions(details);
-		};
-
 		const setNewAddress = async () => {
-			const predictions = await getAzureAddress(addressQuery);
-			setAddressPredictions(predictions);
-		}
+			setTimeout(async () => {
+				const predictions = await getAzureAddress(addressQuery);
+				setAddressPredictions(predictions);
+			}, 1000);
+		};
 		setNewAddress();
-		//setAddress();
 	}, [addressQuery, address]);
 
 	notification.config({
@@ -67,19 +52,17 @@ export const RegistrationForm = () => {
 			});
 		}
 	};
-	
+
 	const validateMessages = {
 		// eslint-disable-next-line no-template-curly-in-string
 		required: "${label} is required",
 	};
-	let options = addressPredictions?.map((option) => {
+	const options = addressPredictions?.map((option) => {
 		return {
 			label: option,
 			value: option,
 		};
 	});
-
-	options = [...new Set(options)]
 
 	type Registration = {
 		username: string;
@@ -176,7 +159,7 @@ export const RegistrationForm = () => {
 						value={address}
 						onSearch={(text) => setAddressQuery(text)}
 					>
-						{options?.map((option) => {
+						{[...new Set(options)].slice(0, 4).map((option) => {
 							return (
 								<AutoComplete.Option value={option.value}>
 									{option.label}

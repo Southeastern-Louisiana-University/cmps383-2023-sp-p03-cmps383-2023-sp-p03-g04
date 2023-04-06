@@ -4,7 +4,6 @@ import { BookResults } from "../BookResults/BookResults";
 
 import "./PlanTabStyle.css";
 import { useState } from "react";
-import { HomePageMap } from "../../GoogleMaps/HomePageMap";
 import { AzureMapDisplay } from "../../GoogleMaps/AzureDisplayMap";
 
 interface TicketRequestData {
