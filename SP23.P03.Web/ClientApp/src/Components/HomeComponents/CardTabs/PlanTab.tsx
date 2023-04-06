@@ -5,6 +5,7 @@ import { BookResults } from "../BookResults/BookResults";
 import "./PlanTabStyle.css";
 import { useState } from "react";
 import { HomePageMap } from "../../GoogleMaps/HomePageMap";
+import { AzureMapDisplay } from "../../GoogleMaps/AzureDisplayMap";
 
 export const PlanTab = () => {
 	const [currentStep, setCurrentStep] = useState(0);
@@ -48,7 +49,7 @@ export const PlanTab = () => {
 				)}
 				{currentStep === 1 && (
 					<>
-						<HomePageMap />
+						<AzureMapDisplay />
 						<BookResults
 							onSubmit={onSubmitTrip}
 							setCurrentStep={setCurrentStep}

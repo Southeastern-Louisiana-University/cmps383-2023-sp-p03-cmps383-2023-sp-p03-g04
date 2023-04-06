@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "set EXPO_PACKAGER_PROXY_URL=http://610e-147-174-75-103.ngrok.io && npx expo start",
+    "start": "set EXPO_PACKAGER_PROXY_URL= http://92a5-147-174-75-3.ngrok.io && npx expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -25,12 +25,12 @@
     "native-base": "^3.4.28",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-dom": "18.0.0",
     "react-native": "0.70.5",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-reanimated": "^3.0.2",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-svg": "^12.1.1"
+    "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -38,6 +38,7 @@
     "@types/jest": "^29.4.0",
     "@types/react": "^18.0.28",
     "@types/react-native": "^0.71.3",
+    "@types/react-native-vector-icons": "^6.4.13",
     "@types/react-test-renderer": "^18.0.0",
     "typescript": "^4.9.5"
   },

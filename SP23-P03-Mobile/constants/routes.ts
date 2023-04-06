@@ -4,8 +4,10 @@ export default{
     FORGOT_PASSWORD: 'Forgot Password',
 
     HOME: 'Home',
-    HOME_TAB: 'Home Tab',
+    HOME_TAB: 'Home',
 
     BOOKING: 'Booking',
     STATUS: 'Status',
+    CHECKIN: 'Check In',
+    NOTIFICATIONS: 'Notifications'
 };
