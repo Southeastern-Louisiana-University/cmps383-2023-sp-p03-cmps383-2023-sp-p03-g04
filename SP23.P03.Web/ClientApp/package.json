@@ -6,6 +6,7 @@
     "@ant-design/icons": "^5.0.1",
     "@googlemaps/google-maps-services-js": "^3.3.27",
     "@react-google-maps/api": "^2.18.1",
+    "@turf/turf": "^6.5.0",
     "antd": "^5.3.0",
     "cors-anywhere": "^0.4.4",
     "crypto": "^1.0.1",

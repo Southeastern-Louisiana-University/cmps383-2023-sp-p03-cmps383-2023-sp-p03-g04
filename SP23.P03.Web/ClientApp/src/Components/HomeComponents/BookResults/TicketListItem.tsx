@@ -17,7 +17,6 @@ interface Props {
 
 export const TicketListItem = (props: Props) => {
 	const ticketType = props.ticketData.ticketType;
-	console.log(ticketType);
 	return (
 		<>
 			{ticketType === "One Way" ? (

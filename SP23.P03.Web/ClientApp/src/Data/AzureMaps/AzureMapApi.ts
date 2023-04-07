@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as turf from "@turf/turf";
 
 const SUBSCRIPTION_KEY = "ZVZ6ckjfrJ1RV0jZFJPAyVEZ-Rwo_wuxWulgh2cAyOQ"
 
@@ -26,7 +27,6 @@ export async function getCity(city: string) {
             .filter((point: any) => point.type === "Geography")
             .filter((point: any) => point.entityType === "Municipality")
             .forEach((point: any) => {  set.add(point)});
-            console.log(Array.from(set))
             return Array.from(set);
         } catch (error) {
             return []; 
@@ -46,3 +46,18 @@ export async function reverseLocate(coords: string) {
     }
 
 }
+
+export async function getRoute(from, to){
+    try {
+      const response = await axios.get(
+        `https://atlas.microsoft.com/route/directions/json?api-version=1.0&subscription-key=${SUBSCRIPTION_KEY}&query=${from[1]},${from[0]}:${to[1]},${to[0]}&routeType=fastest`
+      );
+      const coordinates = response.data.routes[0].legs[0].points.map((point) => [point.longitude, point.latitude]);
+      const line = turf.lineString(coordinates);
+      const simplifiedLine = turf.simplify(line, { tolerance: 0.001, highQuality: false });
+      return simplifiedLine.geometry.coordinates.map(coord => [coord[0], coord[1]]);
+    } catch (error) { 
+      console.error('Error fetching route:', error);
+      return [];
+    }
+  };
