@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import "./TripInputStyle.css";
 import dayjs from "dayjs";
 import { getCity, reverseLocate } from "../../../Data/AzureMaps/AzureMapApi";
+import { getCookie, setCookie } from "../../../Data/Cookies/CookieData";
 
 interface FormProps {
 	setTicketData: (data) => void;
@@ -34,20 +35,24 @@ export const TripInputForm = (props: FormProps) => {
 	const [addressToPredictions, setAddressToPredictions] = useState(
 		[] as any[]
 	);
-	const [addressToValue, setAddressToValue] = useState("");
+	const [addressToValue, setAddressToValue] = useState<string>(
+		getCookie("to-city") ?? ""
+	);
 	const [addressFromQuery, setAddressFromQuery] = useState("");
 	const [addressFromPredictions, setAddressFromPredictions] = useState(
 		[] as any[]
 	);
-	const [addressFromValue, setAddressFromValue] = useState("");
-	const [radioValue, setRadioValue] = useState("");
+	const [addressFromValue, setAddressFromValue] = useState<string>(
+		getCookie("from-city") ?? ""
+	);
+	const [radioValue, setRadioValue] = useState(getCookie("ticket-type"));
 	const [radioLoading, setRadioLoading] = useState(false);
 
 	const [selectedToDate, setSelectedToDate] = useState<string | null>(
-		sessionStorage.getItem("selected-to-date")
+		getCookie("selected-to-date")
 	);
 	const [selectedFromDate, setSelectedFromDate] = useState<string | null>(
-		sessionStorage.getItem("selected-from-date")
+		getCookie("selected-from-date")
 	);
 
 	const inputStyle: React.CSSProperties = {
@@ -96,28 +101,30 @@ export const TripInputForm = (props: FormProps) => {
 	}, [addressToQuery, addressToValue, addressFromQuery, addressFromValue]);
 
 	const onSelectTo = async (data: string) => {
-		sessionStorage.setItem("to-lat", data.split(",")[1].trim());
-		sessionStorage.setItem("to-lon", data.split(",")[1].trim());
+		console.log(data);
+		setCookie("to-lat", data.split(",")[1].trim(), 1);
+		setCookie("to-lon", data.split(",")[0].trim(), 1);
 
 		const val = await reverseLocate(data);
 		setAddressToValue(val);
-		window.sessionStorage.setItem("to-city", val as string);
+		console.log(val);
+		setCookie("to-city", val, 1);
 	};
 	const onSelectFrom = async (data: string) => {
-		sessionStorage.setItem("from-lat", data.split(",")[0].trim());
-		sessionStorage.setItem("from-lon", data.split(",")[1].trim());
+		setCookie("from-lat", data.split(",")[1].trim(), 1);
+		setCookie("from-lon", data.split(",")[0].trim(), 1);
 		const val = await reverseLocate(data);
 		setAddressFromValue(val);
-		window.sessionStorage.setItem("from-city", val as string);
+		setCookie("from-city", val, 1);
 	};
 
 	const data: TicketRequestData = {
 		from: selectedToDate!,
 		to: selectedFromDate!,
-		passengers: parseInt(sessionStorage.getItem("passengers")!),
-		ticketType: sessionStorage.getItem("ticket-type")!,
-		return: sessionStorage.getItem("to-city")!,
-		depart: sessionStorage.getItem("from-cty")!,
+		passengers: parseInt(getCookie("passengers")!),
+		ticketType: getCookie("ticket-type")!,
+		return: getCookie("to-city")!,
+		depart: getCookie("from-cty")!,
 	};
 
 	const onSubmit = () => {
@@ -138,30 +145,29 @@ export const TripInputForm = (props: FormProps) => {
 		};
 	});
 	const onRadioChange = (e) => {
-		sessionStorage.setItem("ticket-type", e.target.value);
+		setCookie("ticket-type", e.target.value, 1);
 		setRadioValue(e.target.value);
 	};
 
 	const onToDateChange = (date: any, dateString: string) => {
 		setSelectedToDate(dateString);
-		sessionStorage.setItem("selected-to-date", dateString);
+		setCookie("selected-to-date", dateString, 1);
 	};
 
 	const onFromDateChange = (date: any, dateString: string) => {
 		setSelectedFromDate(dateString);
-		sessionStorage.setItem("selected-from-date", dateString);
+		setCookie("selected-from-date", dateString, 1);
 	};
-	const defaultToDate = sessionStorage.getItem("selected-to-date")
-		? dayjs(sessionStorage.getItem("selected-to-date"))
-		: (null as unknown as dayjs.Dayjs);
-	const defaultFromDate = sessionStorage.getItem("selected-from-date")
-		? dayjs(sessionStorage.getItem("selected-from-date"))
-		: (null as unknown as dayjs.Dayjs);
-	const defaultTicketType =
-		sessionStorage.getItem("ticket-type") || "round-trip";
-	const defaultPassengers = parseInt(sessionStorage.getItem("passengers")!);
-	const defaultFromCity = sessionStorage.getItem("from-city");
-	const defaultToCity = sessionStorage.getItem("to-city");
+	const defaultToDate =
+		dayjs(getCookie("selected-to-date")) ||
+		(null as unknown as dayjs.Dayjs);
+	const defaultFromDate =
+		dayjs(getCookie("selected-from-date")) ||
+		(null as unknown as dayjs.Dayjs);
+	const defaultTicketType = getCookie("ticket-type") || "round-trip";
+	const defaultPassengers = parseInt(getCookie("passengers")!) || "";
+	const defaultFromCity = getCookie("from-city") || "";
+	const defaultToCity = getCookie("to-city") || "";
 
 	const renderDatePickerLabel = () => {
 		if (radioLoading === true) {
@@ -199,6 +205,20 @@ export const TripInputForm = (props: FormProps) => {
 			);
 		}
 	};
+
+	function isOneWayChecked() {
+		if (getCookie("ticket-type") === "One-Way") {
+			return true;
+		}
+		return false;
+	}
+	function isRoundTripChecked() {
+		if (getCookie("ticket-type") === "Round-Trip") {
+			return true;
+		}
+		return false;
+	}
+
 	return (
 		<Form onFinish={onSubmit} className="form-box">
 			<Row>
@@ -213,8 +233,18 @@ export const TripInputForm = (props: FormProps) => {
 					defaultValue={defaultTicketType}
 					onChange={onRadioChange}
 				>
-					<Radio.Button value="One Way">One-Way</Radio.Button>
-					<Radio.Button value="Round Trip">Round-Trip</Radio.Button>
+					<Radio.Button
+						defaultChecked={isOneWayChecked()}
+						value="One Way"
+					>
+						One-Way
+					</Radio.Button>
+					<Radio.Button
+						defaultChecked={isRoundTripChecked()}
+						value="Round Trip"
+					>
+						Round-Trip
+					</Radio.Button>
 				</Radio.Group>
 			</Form.Item>
 			<Row>
@@ -276,10 +306,7 @@ export const TripInputForm = (props: FormProps) => {
 							style={inputStyle}
 							name="passenger-number"
 							onChange={(event) => {
-								sessionStorage.setItem(
-									"passengers",
-									event!.toString()
-								);
+								setCookie("passengers", event!.toString(), 1);
 							}}
 							defaultValue={defaultPassengers}
 						/>
