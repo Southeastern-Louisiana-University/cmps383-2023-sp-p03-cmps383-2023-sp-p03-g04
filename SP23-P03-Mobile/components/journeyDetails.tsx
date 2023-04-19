@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, StyleSheet, Button } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { DatePickerIOSComponent } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 interface JourneyDetailsProps {
