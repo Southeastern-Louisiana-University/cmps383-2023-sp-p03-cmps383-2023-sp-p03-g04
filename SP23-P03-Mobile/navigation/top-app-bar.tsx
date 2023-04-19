@@ -10,7 +10,7 @@ const TopAppBar = () => {
   return(
     <View>
       <AppBar style={{paddingTop: insets.top}}
-        title= "Temporary Header Name"
+        title= "EnTrack"
         centerTitle={true}
         color={COLORS.tertiary}
         tintColor={COLORS.white}
@@ -36,7 +36,6 @@ const AppProvider = () =>{
     <SafeAreaProvider>
       <TopAppBar/>
     </SafeAreaProvider>
-
   )
 }
 
