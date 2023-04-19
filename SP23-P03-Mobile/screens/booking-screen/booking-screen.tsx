@@ -6,6 +6,7 @@ import {
   import bookingStyle from "./bookingStyle";
   import React, { useLayoutEffect } from "react";
   import { useNavigation } from "@react-navigation/native";
+  import JourneyDetails from "../../components/journeyDetails";
 
 
     const BookingScreen =() =>{
@@ -20,8 +21,8 @@ import {
         return (
             <SafeAreaView style={bookingStyle.container}>
                 <ScrollView>
-                    <Text style={bookingStyle.title}>This is the booking screen</Text>
-                    
+                    <Text style={bookingStyle.title}>Book Your Journey!</Text>
+                    <JourneyDetails navigation={navigation} />
                 </ScrollView>
             </SafeAreaView>
         );
