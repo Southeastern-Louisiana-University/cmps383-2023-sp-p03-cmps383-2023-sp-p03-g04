@@ -8,7 +8,6 @@ import {
 	Col,
 	Button,
 	Spin,
-	Select,
 } from "antd";
 import { useEffect, useState } from "react";
 import "./TripInputStyle.css";
@@ -31,6 +30,8 @@ interface TicketRequestData {
 }
 
 export const TripInputForm = (props: FormProps) => {
+	const [form] = Form.useForm();
+
 	const [addressToQuery, setAddressToQuery] = useState("");
 	const [addressToPredictions, setAddressToPredictions] = useState(
 		[] as any[]
@@ -45,7 +46,7 @@ export const TripInputForm = (props: FormProps) => {
 	const [addressFromValue, setAddressFromValue] = useState<string>(
 		getCookie("from-city") ?? ""
 	);
-	const [radioValue, setRadioValue] = useState(getCookie("ticket-type"));
+	const [, setRadioValue] = useState(getCookie("ticket-type"));
 	const [radioLoading, setRadioLoading] = useState(false);
 
 	const [selectedToDate, setSelectedToDate] = useState<string | null>(
@@ -69,7 +70,8 @@ export const TripInputForm = (props: FormProps) => {
 	};
 
 	const submitButtonStlye: React.CSSProperties = {
-		width: "30vh",
+		width: "30%",
+		marginRight: "10px",
 	};
 
 	useEffect(() => {
@@ -101,13 +103,13 @@ export const TripInputForm = (props: FormProps) => {
 	}, [addressToQuery, addressToValue, addressFromQuery, addressFromValue]);
 
 	const onSelectTo = async (data: string) => {
-		console.log(data);
 		setCookie("to-lat", data.split(",")[1].trim(), 1);
 		setCookie("to-lon", data.split(",")[0].trim(), 1);
 
 		const val = await reverseLocate(data);
-		setAddressToValue(val);
 		console.log(val);
+		setAddressToValue(val);
+		form.setFieldValue("toCity", val);
 		setCookie("to-city", val, 1);
 	};
 	const onSelectFrom = async (data: string) => {
@@ -115,6 +117,7 @@ export const TripInputForm = (props: FormProps) => {
 		setCookie("from-lon", data.split(",")[0].trim(), 1);
 		const val = await reverseLocate(data);
 		setAddressFromValue(val);
+		form.setFieldValue("fromCity", val);
 		setCookie("from-city", val, 1);
 	};
 
@@ -169,12 +172,20 @@ export const TripInputForm = (props: FormProps) => {
 	const defaultFromCity = getCookie("from-city") || "";
 	const defaultToCity = getCookie("to-city") || "";
 
+	const [defaultValues] = useState({
+		ticketType: defaultTicketType,
+		fromDate: defaultFromDate,
+		toDate: defaultToDate,
+		fromCity: defaultFromCity,
+		toCity: defaultToCity,
+	});
+
 	const renderDatePickerLabel = () => {
 		if (radioLoading === true) {
 			return <Spin size="default" />;
 		}
 
-		if (radioValue === "Round Trip") {
+		if (getCookie("ticket-type") === "Round Trip") {
 			return (
 				<Col span={6}>
 					<label className="input-label">Return</label>
@@ -182,22 +193,45 @@ export const TripInputForm = (props: FormProps) => {
 			);
 		}
 	};
+	let tickType = getCookie("ticket-type");
 
+	function clearTicketType() {
+		setCookie("ticket-type", "Round Trip", 1);
+		tickType = "Round Trip";
+		return "Round Trip";
+	}
+	const clearForm = () => {
+		form.setFieldsValue({
+			fromCity: undefined,
+			toCity: undefined,
+			fromDate: undefined,
+			toDate: undefined,
+			passengers: undefined,
+			ticketType: clearTicketType(),
+		});
+	};
 	const renderDatePickerInput = () => {
 		if (radioLoading === true) {
 			return <Spin size="default" />;
 		}
-		if (radioValue === "Round Trip") {
+		if (tickType === "Round Trip") {
 			return (
 				<Col span={6}>
-					<Form.Item>
+					<Form.Item
+						name="toDate"
+						rules={[
+							{
+								required: true,
+								message: "Required",
+							},
+						]}
+					>
 						<DatePicker
 							className="trip-input"
 							allowClear={false}
 							name="date-to"
 							style={inputStyle}
 							size="large"
-							defaultValue={defaultToDate}
 							onChange={onToDateChange}
 						/>
 					</Form.Item>
@@ -207,24 +241,35 @@ export const TripInputForm = (props: FormProps) => {
 	};
 
 	function isOneWayChecked() {
-		if (getCookie("ticket-type") === "One-Way") {
+		if (tickType === "One-Way") {
 			return true;
 		}
 		return false;
 	}
 	function isRoundTripChecked() {
-		if (getCookie("ticket-type") === "Round-Trip") {
+		if (tickType === "Round-Trip") {
 			return true;
 		}
 		return false;
 	}
-
+	const validatePassengers = async () => {
+		const passengers = parseInt(getCookie("passengers") ?? "0");
+		console.log(passengers);
+		if (passengers <= 0) {
+			throw new Error("Must choose at least 1 passenger!");
+		}
+	};
 	return (
-		<Form onFinish={onSubmit} className="form-box">
+		<Form
+			form={form}
+			onFinish={onSubmit}
+			initialValues={defaultValues}
+			className="form-box"
+		>
 			<Row>
 				<label className="input-label">Ticket Type</label>
 			</Row>
-			<Form.Item name="ticket-type">
+			<Form.Item name="ticketType">
 				<Radio.Group
 					className="radio-group"
 					buttonStyle="solid"
@@ -260,7 +305,15 @@ export const TripInputForm = (props: FormProps) => {
 			</Row>
 			<Row align="middle">
 				<Col span={6}>
-					<Form.Item>
+					<Form.Item
+						name="fromCity"
+						rules={[
+							{
+								required: true,
+								message: "Required",
+							},
+						]}
+					>
 						<AutoComplete
 							className="trip-input"
 							placeholder="Enter City"
@@ -280,7 +333,15 @@ export const TripInputForm = (props: FormProps) => {
 				</Col>
 
 				<Col span={6}>
-					<Form.Item>
+					<Form.Item
+						name="toCity"
+						rules={[
+							{
+								required: true,
+								message: "Required",
+							},
+						]}
+					>
 						<AutoComplete
 							className="trip-input"
 							placeholder="Enter City"
@@ -299,11 +360,21 @@ export const TripInputForm = (props: FormProps) => {
 					</Form.Item>
 				</Col>
 				<Col span={6}>
-					<Form.Item>
+					<Form.Item
+						name="passengers"
+						rules={[
+							{
+								required: true,
+								validator: validatePassengers,
+								message: "Must choose at least 1 passenger",
+							},
+						]}
+					>
 						<InputNumber
 							className="trip-input"
 							size="large"
 							style={inputStyle}
+							placeholder="Enter number of passengers"
 							name="passenger-number"
 							onChange={(event) => {
 								setCookie("passengers", event!.toString(), 1);
@@ -321,7 +392,15 @@ export const TripInputForm = (props: FormProps) => {
 			</Row>
 			<Row>
 				<Col span={6}>
-					<Form.Item>
+					<Form.Item
+						name="fromDate"
+						rules={[
+							{
+								required: true,
+								message: "Required",
+							},
+						]}
+					>
 						<DatePicker
 							className="trip-input"
 							allowClear={false}
@@ -342,6 +421,15 @@ export const TripInputForm = (props: FormProps) => {
 						size="large"
 					>
 						Submit
+					</Button>
+					<Button
+						type="default"
+						htmlType="button"
+						className="cancel-button"
+						size="large"
+						onClick={clearForm}
+					>
+						Cancel
 					</Button>
 				</Col>
 			</Row>

@@ -12,7 +12,7 @@ import { useEffect, useState, useMemo } from "react";
 import { getRoute } from "../../Data/AzureMaps/AzureMapApi";
 import { getCookie } from "../../Data/Cookies/CookieData";
 import { calculateMidPoint } from "../../GridFunctions/MidPoint";
-
+import { PushpinFilled } from "@ant-design/icons";
 const SUBSCRIPTION_KEY = "ZVZ6ckjfrJ1RV0jZFJPAyVEZ-Rwo_wuxWulgh2cAyOQ";
 
 export const AzureMapDisplay = () => {
@@ -69,17 +69,37 @@ export const AzureMapDisplay = () => {
 							id="routeLayer"
 							options={{
 								strokeWidth: 8,
-								strokeColor: "red",
+								strokeColor: "green",
 							}}
 							type={"LineLayer"}
 						/>
 						<AzureMapHtmlMarker
 							key={`marker-${firstPos.toString()}`}
 							options={{ position: firstPos }}
+							markerContent={
+								<div>
+									<PushpinFilled
+										style={{ fontSize: "30px" }}
+									/>
+									<p style={{ fontSize: "30px" }}>
+										{getCookie("from-city")}
+									</p>
+								</div>
+							}
 						/>
 						<AzureMapHtmlMarker
 							key={`marker-${secondPos.toString()}`}
 							options={{ position: secondPos }}
+							markerContent={
+								<div>
+									<PushpinFilled
+										style={{ fontSize: "30px" }}
+									/>
+									<p style={{ fontSize: "30px" }}>
+										{getCookie("to-city")}
+									</p>
+								</div>
+							}
 						/>
 						<AzureMapFeature
 							key={"Line String Feature"}
