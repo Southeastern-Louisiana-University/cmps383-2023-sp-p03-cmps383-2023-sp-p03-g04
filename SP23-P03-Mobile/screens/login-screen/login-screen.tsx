@@ -31,7 +31,7 @@ interface LoginScreenProps{
 
     const LoginScreen = (props: LoginScreenProps) => {
 
-      const login =()=> props.navigation.navigate("Home")
+      const login =()=> props.navigation.navigate("Booking")
 
         const[modalVisible, setModalVisible] = useState(false);
 
@@ -45,7 +45,6 @@ interface LoginScreenProps{
           <NativeBaseProvider>
             <SafeAreaView style={loginStyle.containerTitle}>
                 <ScrollView>
-                  <Text style={loginStyle.title}>EnTrack</Text>
                   <Center style={loginStyle.center}>
                     <Box safeArea p="2" py="8" w="90%" maxW="290">
                       <Heading size="lg" fontWeight="600" color="coolGray.800">
@@ -86,16 +85,6 @@ interface LoginScreenProps{
                   }} href="#">
                      Sign Up
                     </Link>
-                    </HStack>
-                    <HStack mt="1" justifyContent="center">
-                      <Link onPress={login}
-                      _text={{
-                      color: "indigo.500",
-                      fontWeight: "medium",
-                      fontSize: "sm"
-                    }} href="#">
-                        Continue as Guest
-                      </Link>
                     </HStack>
                     <View style={loginStyle.centeredView}>
                       <Modal
