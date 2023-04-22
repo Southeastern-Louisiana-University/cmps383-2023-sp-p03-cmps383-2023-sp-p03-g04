@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = ()=>{
   return(
-    <NavigationContainer>
+      <NavigationContainer>
       <Tab.Navigator initialRouteName={ROUTES.BOOKING} 
         screenOptions={({route}) => ({
           headerShown:false,
@@ -40,13 +40,14 @@ const BottomTabNavigator = ()=>{
           },
         })}>
         <Tab.Screen name={ROUTES.HOME_TAB} component={HomeScreen} />
-        <Tab.Screen name={ROUTES.STATUS} component={StatusScreen} />
+        <Tab.Screen name={ROUTES.STATUS_TAB} component={StatusScreen} />
         <Tab.Screen name={ROUTES.BOOKING} component={BookingScreen} />
-        <Tab.Screen name={ROUTES.CHECKIN} component={CheckInScreen}/>
-        <Tab.Screen name={ROUTES.NOTIFICATIONS} component={NotificationScreen}/>
+        <Tab.Screen name={ROUTES.CHECKIN_TAB} component={CheckInScreen}/>
+        <Tab.Screen name={ROUTES.NOTIFICATIONS_TAB} component={NotificationScreen}/>
         
       </Tab.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+
   );
 };
 
