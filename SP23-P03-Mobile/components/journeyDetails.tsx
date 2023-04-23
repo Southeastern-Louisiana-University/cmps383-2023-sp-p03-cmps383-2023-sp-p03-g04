@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, StyleSheet, Button,} from "react-native";
-import { Picker } from '@react-native-picker/picker'
-import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet,} from "react-native";
+import { TextInput, Button } from "@react-native-material/core";
+import { MaterialIcons } from '@expo/vector-icons';
+import { DatePickerModal } from 'react-native-paper-dates';
 
 interface JourneyDetailsProps {
   navigation: any;
 }
 
-interface Location {
-  latitude: number;
-  longitude: number;
-}
 
 const JourneyDetails: React.FC<JourneyDetailsProps> = ({ navigation }) => {
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
   const [ticketType, setTicketType] = useState("");
+  const [range, setRange] = React.useState({ startDate: undefined, endDate: undefined});
+  const [open, setOpen] = React.useState(false);
+
+  const onDismiss = React.useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+  const onConfirm = React.useCallback(
+    ({ startDate, endDate}) => {
+      setOpen(false);
+      setRange({ startDate, endDate});
+    },
+    [setOpen, setRange]
+  );
 
 
   const handleNext = () => {
@@ -32,29 +43,38 @@ const JourneyDetails: React.FC<JourneyDetailsProps> = ({ navigation }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Source"
+        variant="outlined"
+        label="From"
         value={source}
         onChangeText={setSource}
       />
       <TextInput
         style={styles.input}
-        placeholder="Destination"
+        variant="outlined"
+        label="To"
         value={destination}
         onChangeText={setDestination}
       />
       <TextInput
         style={styles.input}
-        placeholder="Date"
+        variant="outlined"
+        label="Date"
         value={date}
         onChangeText={setDate}
       />
+
       <TextInput
         style={styles.input}
-        placeholder="Ticket Type"
+        variant="outlined"
+        label="Ticket Type"
         value={ticketType}
         onChangeText={setTicketType}
       />
-      <Button title="Next" onPress={handleNext} />
+      <Button 
+      title="Next"
+      onPress={handleNext}
+      trailing={props => <MaterialIcons name = "navigate-next" {...props} />}
+      />
     </View>
   );
 };
@@ -67,9 +87,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
     padding: 10,
     marginBottom: 20,
     width: "100%",
