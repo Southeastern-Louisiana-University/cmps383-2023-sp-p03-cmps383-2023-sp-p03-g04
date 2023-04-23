@@ -7,16 +7,19 @@ import TopAppBar from "./navigation/top-app-bar";
 import AppNavigator from "./navigation/app.navigator";
 import AuthNavigator from "./navigation/auth-navigator";
 import { NavigationContainer } from "@react-navigation/native";
+import { AuthProvider } from "./authentication/auth-context";
 
 
 const App =() => {
   return (
+    
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NativeBaseProvider>
           <TopAppBar/>
           <BottomTabNavigator/>
       </NativeBaseProvider>
     </GestureHandlerRootView>
+    
   );
 }
 
