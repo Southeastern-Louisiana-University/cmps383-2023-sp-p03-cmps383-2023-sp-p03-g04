@@ -27,9 +27,8 @@ import homeStyle from "./homeStyle";
         <SafeAreaView style={homeStyle.container}>
           <ScrollView>
           <Text style={homeStyle.entrack}>EnTrack</Text>
-          <Text style={homeStyle.title}>Fast.</Text>
-          <Text style={homeStyle.title}>Reliable.</Text>
-          <Text style={homeStyle.title}>Comfortable.</Text>
+          <Text style={homeStyle.title}>Login to View Your Tickets</Text>
+          
           </ScrollView>
         </SafeAreaView>
       </NativeBaseProvider>
