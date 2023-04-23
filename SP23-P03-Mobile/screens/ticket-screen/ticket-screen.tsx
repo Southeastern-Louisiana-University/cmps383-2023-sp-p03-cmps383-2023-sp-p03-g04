@@ -24,6 +24,7 @@ import { COLORS } from "../../constants";
         <Text style={ticketStyle.title}>Your tickets are listed below</Text>
         <Divider style={{ marginTop: 60 }} leadingInset={32} trailingInset={32} color={COLORS.tertiary} />
         
+        
         </ScrollView>
       </SafeAreaView>
     );
