@@ -4,8 +4,12 @@ export default{
     FORGOT_PASSWORD: 'Forgot Password',
 
     HOME: 'Home',
-    HOME_TAB: 'Home',
+    HOME_TAB: 'My Tickets',
     HOME_DRAWER: 'Home',
+
+    TICKETS: 'My Tickets',
+    TICKETS_TAB: 'My Tickets',
+
 
     BOOKING: 'Booking',
     BOOKING_TAB: 'Booking',

@@ -6,9 +6,10 @@ import HomeScreen from "../screens/home-screen/home-screen";
 import StatusScreen from "../screens/status-screen/status-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import {COLORS, ROUTES} from '../constants';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
 import CheckInScreen from "../screens/checkin-screen/checkin-screen";
 import NotificationScreen from "../screens/notif-screen/notif-screen";
+import TicketScreen from "../screens/ticket-screen/ticket-screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ const BottomTabNavigator = ()=>{
             let iconName;
 
             if(route.name === ROUTES.HOME_TAB){
-              iconName = focused ? 'home':'home-outline';
+              iconName = focused ? 'reader':'reader-outline';
             } else if(route.name ===ROUTES.BOOKING){
               iconName = focused ? 'train':'train-outline';
             } else if(route.name === ROUTES.STATUS){
@@ -34,6 +35,8 @@ const BottomTabNavigator = ()=>{
               iconName = focused ? 'checkmark-circle':'checkmark-circle-outline';
             } else if(route.name === ROUTES.NOTIFICATIONS){
               iconName = focused ? 'notifications':'notifications-outline';
+            } else if(route.name === ROUTES.TICKETS){
+              iconName = focused ? 'reader' : 'reader-outline';
             }
 
             return <Icon name={iconName} size={22} color={color}/>
