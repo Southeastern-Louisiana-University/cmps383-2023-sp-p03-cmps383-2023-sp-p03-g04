@@ -2,7 +2,7 @@
   "expo": {
     "name": "EnTrack",
     "slug": "SP23-P03-Mobile-g04",
-    "owner": "envoc_infrastructure",
+    
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/main-icon.png",

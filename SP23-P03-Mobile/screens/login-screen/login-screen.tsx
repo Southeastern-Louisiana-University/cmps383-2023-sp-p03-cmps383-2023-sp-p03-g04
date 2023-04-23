@@ -23,23 +23,45 @@ import {
   } from "native-base";
 import { Entypo } from '@expo/vector-icons';
 import { ROUTES } from "../../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BaseUrl } from "../../Config";
 
 interface LoginScreenProps{
   navigation: any;
 }
 
-
     const LoginScreen = (props: LoginScreenProps) => {
+      const login = () => props.navigation.navigate("Booking")
 
-      const login =()=> props.navigation.navigate("Booking")
+      const [username, setUsername] = useState('');
+      const [password, setPassword] = useState('');
 
-        const[modalVisible, setModalVisible] = useState(false);
+      const handleLogin = () => {
+        // Make a request to your API to authenticate the user's credentials
+        fetch(`${BaseUrl}/api/authentication/me`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // If the API returns a successful response, store the user's token
+            // in AsyncStorage or another secure storage solution
+            AsyncStorage.setItem('token', data.token);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
 
-        function pressHandler(){
-          setModalVisible(true);
-        }
+      const[modalVisible, setModalVisible] = useState(false);
 
-        
+      function pressHandler(){
+        setModalVisible(true);
+      }
+
 
         return(
           <NativeBaseProvider>
@@ -55,12 +77,22 @@ interface LoginScreenProps{
                       </Heading>
                   <VStack space={3} mt="5">
                   <FormControl>
-                    <FormControl.Label>Email</FormControl.Label>
-                    <Input />
+                    <FormControl.Label>Username</FormControl.Label>
+                    <Input 
+                      placeholder="Username"
+                      value={username}
+                      onChangeText={(text) => setUsername(text)}
+                    />
                   </FormControl>
                   <FormControl>
                     <FormControl.Label>Password</FormControl.Label>
-                    <Input type="password" />
+                    <Input 
+                    type="password" 
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                    secureTextEntry
+                    />
                     <Link _text={{
                     fontSize: "xs",
                     fontWeight: "500",
@@ -69,7 +101,7 @@ interface LoginScreenProps{
                       Forget Password?
                     </Link>
                   </FormControl>
-                  <Button mt="2" colorScheme="indigo">
+                  <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
                     Sign in
                   </Button>
                   <HStack mt="6" justifyContent="center">
@@ -145,5 +177,6 @@ interface LoginScreenProps{
         );
 
     };
+  
 
 export default LoginScreen;
