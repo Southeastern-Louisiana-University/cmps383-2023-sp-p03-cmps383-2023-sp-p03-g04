@@ -8,11 +8,11 @@ const ticketStyle=StyleSheet.create({
         backgroundColor: '#ffffff',
       },
       title: {
-        marginTop: 16,
-        paddingVertical: 8,
+        marginTop: 10,
+        paddingVertical: 5,
         color: '#20232a',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: 'bold',
       },
 });

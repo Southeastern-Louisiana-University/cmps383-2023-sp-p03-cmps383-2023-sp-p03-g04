@@ -9,11 +9,12 @@ import {COLORS, ROUTES} from '../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CheckInScreen from "../screens/checkin-screen/checkin-screen";
 import NotificationScreen from "../screens/notif-screen/notif-screen";
+import TicketScreen from "../screens/ticket-screen/ticket-screen";
 
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator = ()=>{
+const AuthBottomTabNavigator = ()=>{
   return(
       <NavigationContainer>
       <Tab.Navigator initialRouteName={ROUTES.BOOKING} 
@@ -25,8 +26,8 @@ const BottomTabNavigator = ()=>{
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            if(route.name === ROUTES.HOME_TAB){
-              iconName = focused ? 'reader':'reader-outline';
+            if(route.name === ROUTES.TICKETS){
+                iconName = focused ? 'reader' : 'reader-outline';
             } else if(route.name ===ROUTES.BOOKING){
               iconName = focused ? 'train':'train-outline';
             } else if(route.name === ROUTES.STATUS){
@@ -40,7 +41,7 @@ const BottomTabNavigator = ()=>{
             return <Icon name={iconName} size={22} color={color}/>
           },
         })}>
-        <Tab.Screen name={ROUTES.HOME_TAB} component={HomeScreen} />
+        <Tab.Screen name={ROUTES.TICKETS} component={TicketScreen} />
         <Tab.Screen name={ROUTES.STATUS_TAB} component={StatusScreen} />
         <Tab.Screen name={ROUTES.BOOKING} component={BookingScreen} />
         <Tab.Screen name={ROUTES.CHECKIN_TAB} component={CheckInScreen}/>
@@ -53,7 +54,7 @@ const BottomTabNavigator = ()=>{
 };
 
 
-export default BottomTabNavigator;
+export default AuthBottomTabNavigator;
 
 const styles = StyleSheet.create({
   tabBarStyle: {
