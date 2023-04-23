@@ -52,7 +52,11 @@ public class StationsController : ControllerBase
         var station = new TrainStation
         {
             Name = dto.Name,
-            Address = dto.Address,
+            Street = dto.Street,
+            City = dto.City,
+            State = dto.State,
+            Country = dto.Country,
+            ZipCode = dto.ZipCode,
             ManagerId = dto.ManagerId,
         };
         stations.Add(station);
@@ -86,7 +90,12 @@ public class StationsController : ControllerBase
         }
 
         station.Name = dto.Name;
-        station.Address = dto.Address;
+        station.Street = dto.Street;
+        station.City = dto.City;
+        station.State = dto.State;
+        station.Country = dto.Country;
+        station.ZipCode = dto.ZipCode;
+
         if (User.IsInRole(RoleNames.Admin))
         {
             station.ManagerId = dto.ManagerId;
@@ -126,7 +135,16 @@ public class StationsController : ControllerBase
     {
         return string.IsNullOrWhiteSpace(dto.Name) ||
                dto.Name.Length > 120 ||
-               string.IsNullOrWhiteSpace(dto.Address) ||
+               string.IsNullOrWhiteSpace(dto.Street) ||
+               dto.Street.Length > 255 ||
+               string.IsNullOrWhiteSpace(dto.City) ||
+               dto.City.Length > 120 ||
+               string.IsNullOrWhiteSpace(dto.State) ||
+               dto.State.Length > 120 ||
+               string.IsNullOrWhiteSpace(dto.Country) ||
+               dto.Country.Length > 120 ||
+               string.IsNullOrWhiteSpace(dto.ZipCode) ||
+               dto.ZipCode.Length > 120 ||
                InvalidManagerId(dto.ManagerId);
     }
 
@@ -152,7 +170,11 @@ public class StationsController : ControllerBase
             {
                 Id = x.Id,
                 Name = x.Name,
-                Address = x.Address,
+                Street = x.Street,
+                City = x.City,
+                State = x.State,
+                Country = x.Country,
+                ZipCode = x.ZipCode,
                 ManagerId = x.ManagerId,
             });
     }
