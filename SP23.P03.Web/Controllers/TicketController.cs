@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SP23.P03.Web.Data;
 using SP23.P03.Web.Extensions;
 using SP23.P03.Web.Features.Authorization;
+using SP23.P03.Web.Features.ScheduledTrains;
 using SP23.P03.Web.Features.Tickets;
 
 namespace SP23.P03.Web.Controllers;

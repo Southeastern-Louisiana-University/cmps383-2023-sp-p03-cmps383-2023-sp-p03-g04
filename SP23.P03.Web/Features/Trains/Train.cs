@@ -1,4 +1,5 @@
 ﻿using SP23.P03.Web.Features.Carriers;
+using SP23.P03.Web.Features.Schedules;
 using SP23.P03.Web.Features.Trains;
 using SP23.P03.Web.Features.TrainStations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,5 +28,7 @@ namespace SP23.P03.Web.Features
         public string Status { get; set; }
 
         public ICollection<TrainCar> TrainCars { get; set; }
+
+        public virtual ICollection<Schedule>? Schedules { get; set; }
     }
 }

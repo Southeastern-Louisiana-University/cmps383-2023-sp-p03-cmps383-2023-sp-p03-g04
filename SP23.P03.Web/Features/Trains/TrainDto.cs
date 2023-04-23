@@ -4,6 +4,7 @@
     {
 
         public int CarrierId { get; set; }
+
         public int DepartingStationId { get; set; }
         public int ArrivingStationId { get; set; }
         public DateTimeOffset ArrivalTime { get; set; }

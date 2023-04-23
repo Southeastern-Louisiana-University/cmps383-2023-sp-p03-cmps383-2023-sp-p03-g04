@@ -11,11 +11,24 @@ public class TrainStationConfiguration : IEntityTypeConfiguration<TrainStation>
             .HasMaxLength(120)
             .IsRequired();
 
-        builder.Property(x => x.Address)
+        builder.Property(x => x.Street)
+            .HasMaxLength(120)
             .IsRequired();
 
-        builder.HasOne(x => x.Manager)
-            .WithMany(x => x.ManageStations)
-            .HasForeignKey(x => x.ManagerId);
+        builder.Property(x => x.City)
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(x => x.State)
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(x => x.Country)
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(x => x.ZipCode)
+            .HasMaxLength(120)
+            .IsRequired();
     }
 }
