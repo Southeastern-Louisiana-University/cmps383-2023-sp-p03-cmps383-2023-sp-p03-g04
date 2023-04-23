@@ -6,7 +6,6 @@ import {Modal, Pressable, View, StyleSheet} from 'react-native';
 import {useSafeAreaInsets, SafeAreaProvider} from 'react-native-safe-area-context';
 import LoginScreen from "../screens/login-screen/login-screen";
 import { Box, Button, Center, Text } from "native-base";
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import loginStyle from "../screens/login-screen/loginStyle";
 
 
@@ -24,7 +23,7 @@ const TopAppBar = () => {
         color={COLORS.tertiary}
         tintColor={COLORS.white}
         leading={props => (
-          <IconButton  icon={props => <Icon name="menu" {...props} />} {...props} />
+          <IconButton  icon={props => <Icon name="account-circle" {...props} />} {...props} />
         )}
         trailing={props => (
           <HStack>
