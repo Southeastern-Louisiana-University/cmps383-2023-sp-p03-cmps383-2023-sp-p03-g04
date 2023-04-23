@@ -11,7 +11,7 @@ import loginStyle from "../screens/login-screen/loginStyle";
 
 
 
-const TopAppBar = () => {
+const AuthTopAppBar = () => {
   const insets = useSafeAreaInsets();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -29,7 +29,7 @@ const TopAppBar = () => {
           <HStack>
             <IconButton
               icon={
-                props => <Icon name="login" {...props} 
+                props => <Icon name="logout" {...props} 
                 />
               }
               onPress={() => setModalVisible(true)}
@@ -49,11 +49,14 @@ const TopAppBar = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <LoginScreen navigation={undefined}/>
+           <Text style={styles.textStyle2}>Sign Out?</Text>
+           <Button style={[loginStyle.button, styles.buttonYes]}>
+            <Text style={loginStyle.textStyle}>Yes</Text>
+           </Button>
             <Button
               style={[loginStyle.button, loginStyle.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={loginStyle.textStyle}>Close</Text>
+                <Text style={loginStyle.textStyle}>No</Text>
             </Button>
           </View>
         </View>
@@ -91,8 +94,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
+  buttonYes: {
+    backgroundColor: '#5359d1',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
@@ -101,6 +104,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  textStyle2: {
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 30,
+    fontSize: 25,
   },
   modalText: {
     marginBottom: 15,
@@ -111,9 +121,9 @@ const styles = StyleSheet.create({
 const AppProvider = () =>{
   return(
     <SafeAreaProvider>
-      <TopAppBar/>
+      <AuthTopAppBar/>
     </SafeAreaProvider>
   )
 }
 
-export default TopAppBar;
+export default AuthTopAppBar;
