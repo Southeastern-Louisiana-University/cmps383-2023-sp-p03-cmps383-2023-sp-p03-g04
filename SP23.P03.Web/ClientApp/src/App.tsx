@@ -24,7 +24,7 @@ const App = () => {
 					<Header
 						style={{
 							paddingLeft: 0,
-							background: "#3223d3",
+							background: "#5359d1",
 							position: "sticky",
 						}}
 					/>

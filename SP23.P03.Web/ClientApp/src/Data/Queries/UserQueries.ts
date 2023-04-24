@@ -10,9 +10,11 @@ export function getCurrentUser(): User | null {
         try {
             const {data, status} = await Api.get<GetUserResponse>('/authentication/me')
 
-            if (status === 200) result = data.user;
+            if (status === 200) {
+                result = data.user;
+            } 
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
     return result;
