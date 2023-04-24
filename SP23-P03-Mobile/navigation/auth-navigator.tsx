@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginScreen from '../screens/login-screen/login-screen';
 import {ROUTES} from '../constants';
 import { NavigationContainer } from '@react-navigation/native';
-import BottomTabNavigator from "../navigation/bottom-tab-navigator";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import DrawerNavigator from './drawer-navigator';
+import { createStackNavigator } from '@react-navigation/stack';
+import BottomTabNavigator from './bottom-tab-navigator';
 
-const Drawer = createDrawerNavigator();
+
+const Stack = createStackNavigator();
 
 function AuthNavigator() {
-   
+  const [loginState, setLoginState] = useState({
+    authCookie: "",
+    user: {},
+  });
+
+   console.log(Stack);
   return (
-    <NavigationContainer>
-    <Drawer.Navigator>
-      
-      <Drawer.Screen name={ROUTES.HOME} component={DrawerNavigator} options={{headerShown:false}}/>
-    </Drawer.Navigator>
-    </NavigationContainer>
+    
+    <Stack.Navigator initialRouteName={ROUTES.BOOKING_TAB} screenOptions={{}}>
+      <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen}/>
+      <Stack.Screen name={ROUTES.BOOKING_TAB} component={BottomTabNavigator}/>
+    </Stack.Navigator>
+
   );
 }
 
