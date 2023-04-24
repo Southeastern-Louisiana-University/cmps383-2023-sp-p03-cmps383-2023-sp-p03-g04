@@ -9,6 +9,7 @@ const AppNav = () => {
     return(
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NativeBaseProvider>
+        
           <TopAppBar/>
           {/*<AuthTopAppBar/>*/}
           <BottomTabNavigator/>
