@@ -6,7 +6,7 @@ import {
     Alert,
   } from "react-native";
 import loginStyle from "./loginStyle";
-import React, { useState} from "react";
+import React, { useState, useContext} from "react";
 import { 
     Button, 
     FormControl, 
@@ -22,40 +22,33 @@ import {
     Icon
   } from "native-base";
 import { Entypo } from '@expo/vector-icons';
-import { ROUTES } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BaseUrl } from "../../Config";
+import axios from "axios";
+import { User } from "../../data/types/user-types";
+import { useAuth } from "../../authentication/auth-context";
 
 interface LoginScreenProps{
   navigation: any;
 }
 
     const LoginScreen = (props: LoginScreenProps) => {
-      const login = () => props.navigation.navigate("Booking")
+      
+     
 
       const [username, setUsername] = useState('');
       const [password, setPassword] = useState('');
+      
 
-      const handleLogin = () => {
-        // Make a request to your API to authenticate the user's credentials
-        fetch(`${BaseUrl}/api/authentication/me`, {
-          method: 'POST',
-          headers: {
-            Accept:'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // If the API returns a successful response, store the user's token
-            // in AsyncStorage or another secure storage solution
-            AsyncStorage.setItem('token', data.token);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
+      const auth = useAuth()
+
+     
+      const handleLogin = async (username, password) => {
+        await auth.login(username,password);
+
+          Alert.alert('Logged in successfully!');
+          
+      };
 
       const[modalVisible, setModalVisible] = useState(false);
 
@@ -102,7 +95,7 @@ interface LoginScreenProps{
                       Forget Password?
                     </Link>
                   </FormControl>
-                  <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
+                  <Button mt="2" colorScheme="indigo" onPress={() => handleLogin(username, password)}>
                     Sign in
                   </Button>
                   <HStack mt="6" justifyContent="center">
