@@ -4,11 +4,22 @@ import { BookResults } from "../BookResults/BookResults";
 
 import "./PlanTabStyle.css";
 import { useState } from "react";
-import { HomePageMap } from "../../GoogleMaps/HomePageMap";
+import { AzureMapDisplay } from "../../GoogleMaps/AzureDisplayMap";
+
+interface TicketRequestData {
+	ticketType: string;
+	from: string;
+	to: string;
+	passengers: number;
+	depart: string;
+	return: string;
+}
 
 export const PlanTab = () => {
 	const [currentStep, setCurrentStep] = useState(0);
-	const onSubmitTrip = () => {};
+	const [ticketData, setTicketData] = useState<TicketRequestData>(
+		null as any
+	);
 	return (
 		<>
 			<ConfigProvider
@@ -42,15 +53,15 @@ export const PlanTab = () => {
 				</div>
 				{currentStep === 0 && (
 					<TripInputForm
-						onSubmit={onSubmitTrip}
+						setTicketData={setTicketData}
 						setCurrentStep={setCurrentStep}
 					/>
 				)}
 				{currentStep === 1 && (
 					<>
-						<HomePageMap />
+						<AzureMapDisplay />
 						<BookResults
-							onSubmit={onSubmitTrip}
+							ticketData={ticketData}
 							setCurrentStep={setCurrentStep}
 						/>
 					</>

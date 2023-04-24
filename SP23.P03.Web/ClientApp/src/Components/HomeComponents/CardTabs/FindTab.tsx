@@ -1,10 +1,24 @@
-import { Button, Col, Input, Layout, Row, theme } from "antd";
+import { MailOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Form, Input, Layout, Row, theme } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
+import { useState } from "react";
 
 export const FindTab = () => {
+	const [display, setDisplay] = useState(false);
 	const {
 		token: { colorBgContainer },
 	} = theme.useToken();
+
+	const inputStyle: React.CSSProperties = {
+		width: "100%",
+		border: "2px solid grey",
+		borderRadius: 12,
+		borderWidth: 3,
+	};
+
+	const submitForm = () => {
+		setDisplay(true);
+	};
 
 	return (
 		<>
@@ -16,8 +30,8 @@ export const FindTab = () => {
 						fontSize: "25px",
 					}}
 				>
-					Enter the Ticket ID you received in your order confirmation
-					email
+					Enter your Ticket ID and Email that the ticket information
+					was sent to.
 				</Header>
 				<Content
 					style={{
@@ -33,9 +47,24 @@ export const FindTab = () => {
 							justifyContent: "center",
 						}}
 					>
-						<Col span={6}>
-							<Input name="ticket-id" />
-						</Col>
+						<Form
+							layout="horizontal"
+							labelCol={{ span: 5 }}
+							wrapperCol={{ span: 20 }}
+						>
+							<Form.Item label="Email">
+								<Input
+									style={inputStyle}
+									prefix={<MailOutlined />}
+								/>
+							</Form.Item>
+							<Form.Item label="Ticket Id">
+								<Input
+									style={inputStyle}
+									prefix={<MailOutlined />}
+								/>
+							</Form.Item>
+						</Form>
 					</Row>
 					<Row
 						style={{
@@ -46,8 +75,40 @@ export const FindTab = () => {
 						}}
 					>
 						<Col span={3}>
-							<Button type="primary"> Search </Button>
+							<Button type="primary" onClick={submitForm}>
+								{" "}
+								Search{" "}
+							</Button>
 						</Col>
+					</Row>
+					<Row style={{ display: "flex", justifyContent: "center" }}>
+						{display && (
+							<>
+								<Card>
+									<p>
+										<b>Your Ticket Info</b>
+									</p>
+									<p>
+										<b>Route: </b> Dallas, TX to Austin, TX
+									</p>
+									<p>
+										<b>Travel Date: </b> 05/15/2023
+									</p>
+									<p>
+										<b>Departure Time: </b> 5:00 AM
+									</p>
+									<p>
+										<b>Arrival Time: </b> 9:00 AM
+									</p>
+									<p>
+										<b>Train Car:</b> Class B, First Class
+									</p>
+									<p>
+										<b>Seat Number: </b> 12A
+									</p>
+								</Card>
+							</>
+						)}
 					</Row>
 				</Content>
 			</Layout>

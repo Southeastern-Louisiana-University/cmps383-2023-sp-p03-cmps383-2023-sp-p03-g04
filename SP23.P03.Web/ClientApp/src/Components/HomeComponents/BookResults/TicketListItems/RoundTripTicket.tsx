@@ -2,6 +2,7 @@ import { Descriptions, List } from "antd";
 
 import "./RoundTripTicket.css";
 import "./TicketStyle.css";
+import { getCookie } from "../../../../Data/Cookies/CookieData";
 
 interface Props {
 	setCurrentStep: (step: number) => void;
@@ -14,11 +15,12 @@ export const RoundTripTicket = (props: Props) => {
 		year: "numeric",
 	};
 	const fromDate = new Date(
-		sessionStorage.getItem("selected-from-date")!
+		getCookie("selected-from-date")!
 	).toLocaleDateString("en-US", dateOptions);
-	const toDate = new Date(
-		sessionStorage.getItem("selected-to-date")!
-	).toLocaleDateString("en-US", dateOptions);
+	const toDate = new Date(getCookie("selected-to-date")!).toLocaleDateString(
+		"en-US",
+		dateOptions
+	);
 
 	const labelStyle = {
 		background: "darkgrey",
@@ -58,13 +60,13 @@ export const RoundTripTicket = (props: Props) => {
 										label="Start"
 										className="desc-item"
 									>
-										{sessionStorage.getItem("from-city")}
+										{getCookie("from-city")}
 									</Descriptions.Item>
 									<Descriptions.Item
 										label="Destination"
 										span={2}
 									>
-										{sessionStorage.getItem("to-city")}
+										{getCookie("to-city")}
 									</Descriptions.Item>
 									<Descriptions.Item label="Departure Time">
 										5:30 AM
@@ -87,13 +89,13 @@ export const RoundTripTicket = (props: Props) => {
 									labelStyle={labelStyle}
 								>
 									<Descriptions.Item label="Start">
-										{sessionStorage.getItem("to-city")}
+										{getCookie("to-city")}
 									</Descriptions.Item>
 									<Descriptions.Item
 										label="Destination"
 										span={2}
 									>
-										{sessionStorage.getItem("from-city")}
+										{getCookie("from-city")}
 									</Descriptions.Item>
 									<Descriptions.Item label="Departure Time">
 										5:30 AM

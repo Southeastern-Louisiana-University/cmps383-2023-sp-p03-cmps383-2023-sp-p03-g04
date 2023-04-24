@@ -17,17 +17,20 @@ export const getAddress = async (query: string) => {
     }
 
     const client = new Client({})
+    try {
+        const response = await client.placeAutocomplete(request)
+        
+        const results = response.data.predictions.map((prediction) => {
+            return {
+                Id: prediction.place_id,
+                description: prediction.description
+            }
+        })
 
-    const response = await client.placeAutocomplete(request)
-    
-    const results = response.data.predictions.map((prediction) => {
-        return {
-            Id: prediction.place_id,
-            description: prediction.description
-        }
-    })
+        return results;
+    } catch (error) {
 
-    return results;
+    }
 }
 
 export const getAddressDetails = async (placeId: string) => {
@@ -40,8 +43,12 @@ export const getAddressDetails = async (placeId: string) => {
         }
     }
     const client = new Client({})
+    try {
     const response = await client.placeDetails(request);
     return response.data.result.formatted_address;
+    } catch (error) {
+
+    }
 }
 
 export const getAddressCityCountry = async (query: string) => {
@@ -56,17 +63,20 @@ export const getAddressCityCountry = async (query: string) => {
         url: AUTOCOMPLTE_URL,
     }
     const client = new Client({})
+    try {
+        const response = await client.placeAutocomplete(request)
 
-    const response = await client.placeAutocomplete(request)
+        const results = response.data.predictions.map((prediction) => {
+            return {
+                Id: prediction.place_id,
+                description: prediction.description
+            }
+        })
 
-    const results = response.data.predictions.map((prediction) => {
-        return {
-            Id: prediction.place_id,
-            description: prediction.description
-        }
-    })
-
-    return results;
+        return results;
+    } catch (error) {
+        
+    }
 }
 
 export const getAddressGeoLocation = async (address: string) => {
