@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "@react-native-material/core";
 import { COLORS } from "../../constants";
+import { KeyboardAvoidingView } from "native-base";
 
 const TicketScreen = () => {
   const navigation = useNavigation();
@@ -26,8 +27,8 @@ const TicketScreen = () => {
   }
 
   const ticket: BookingTickets = {
-    origin: "Dallas",
-    destination: "Austin",
+    origin: "Dallas, TX",
+    destination: "Austin, TX",
     departTime: "5:00 AM",
     arrivalTime: "9:00 AM",
     seatNumber: "12A",
@@ -39,6 +40,7 @@ const TicketScreen = () => {
   return (
     <SafeAreaView style={ticketStyle.container}>
       <ScrollView>
+        <KeyboardAvoidingView>
         <Text style={ticketStyle.title}>Your ticket is listed below</Text>
         <Divider
           style={{ marginTop: 10, marginBottom: 30 }}
@@ -77,6 +79,7 @@ const TicketScreen = () => {
           <Text style={ticketStyle.label}>Ticket Class:</Text>
           <Text style={ticketStyle.value}>{ticket.ticketClass}</Text>
         </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>
   );
