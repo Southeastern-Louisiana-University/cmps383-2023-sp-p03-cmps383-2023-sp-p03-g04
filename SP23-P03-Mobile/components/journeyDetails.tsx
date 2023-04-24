@@ -14,20 +14,6 @@ const JourneyDetails: React.FC<JourneyDetailsProps> = ({ navigation }) => {
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
   const [ticketType, setTicketType] = useState("");
-  const [range, setRange] = React.useState({ startDate: undefined, endDate: undefined});
-  const [open, setOpen] = React.useState(false);
-
-  const onDismiss = React.useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
-
-  const onConfirm = React.useCallback(
-    ({ startDate, endDate}) => {
-      setOpen(false);
-      setRange({ startDate, endDate});
-    },
-    [setOpen, setRange]
-  );
 
 
   const handleNext = () => {

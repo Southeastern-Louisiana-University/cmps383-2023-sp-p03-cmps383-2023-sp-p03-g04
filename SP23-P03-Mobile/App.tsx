@@ -17,8 +17,8 @@ const App =() => {
       <NativeBaseProvider>
           <TopAppBar/>
           {/*<AuthTopAppBar/>*/}
-          <BottomTabNavigator/>
-         {/*<AuthBottomTabNavigator/>*/}
+          {/* <BottomTabNavigator/> */}
+         <AuthBottomTabNavigator/>
       </NativeBaseProvider>
     </GestureHandlerRootView>
     
