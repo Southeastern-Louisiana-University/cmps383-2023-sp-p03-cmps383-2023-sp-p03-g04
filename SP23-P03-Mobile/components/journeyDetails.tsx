@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet,} from "react-native";
 import { TextInput, Button } from "@react-native-material/core";
 import { MaterialIcons } from '@expo/vector-icons';
-import { DatePickerModal } from 'react-native-paper-dates';
+
 
 interface JourneyDetailsProps {
   navigation: any;
 }
+
 
 
 const JourneyDetails: React.FC<JourneyDetailsProps> = ({ navigation }) => {
@@ -14,7 +15,6 @@ const JourneyDetails: React.FC<JourneyDetailsProps> = ({ navigation }) => {
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
   const [ticketType, setTicketType] = useState("");
-
 
   const handleNext = () => {
     navigation.navigate("SeatSelection", {
@@ -76,9 +76,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     width: "100%",
-  },
-  map: {
-    flex: 1,
   },
 });
 

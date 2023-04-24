@@ -1,31 +1,32 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
-const ticketStyle=StyleSheet.create({
-  title: {
-    marginTop: 20,
-    paddingVertical: 5,
-    color: '#5359d1',
-    textAlign: 'center',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
+const ticketStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f2f2f2",
     paddingHorizontal: 30,
     justifyContent: "center",
-    alignContent: "center",      
+    alignContent: "center",
+  },
+  title: {
+    marginTop: 20,
+    fontSize: 25,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    textAlign: "center",
+    paddingVertical: 5,
+    color: "#5359d1",
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#FDBA74",
+    textTransform: "uppercase",
+    textAlign: "center",
+    marginLeft: 10,
     marginBottom: 20,
     justifyContent: "center",
     alignContent: "center",
-    marginLeft: 10,
-    color: '#FDBA74',
-    textTransform: 'uppercase',
   },
   infoContainer: {
     flexDirection: "row",
@@ -34,17 +35,17 @@ const ticketStyle=StyleSheet.create({
     width: "100%",
   },
   label: {
+    flex: 1,
     fontSize: 18,
     fontWeight: "bold",
+    color: "#555555",
     marginRight: 10,
-    flex: 1,
-    color: '#555555',
   },
   value: {
-    fontSize: 18,
     flex: 2,
+    fontSize: 18,
     textAlign: "right",
-    color: '#5359d1',
+    color: "#5359d1",
   },
 });
 
