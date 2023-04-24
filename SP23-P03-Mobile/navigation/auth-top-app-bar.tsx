@@ -7,6 +7,8 @@ import {useSafeAreaInsets, SafeAreaProvider} from 'react-native-safe-area-contex
 import LoginScreen from "../screens/login-screen/login-screen";
 import { Box, Button, Center, Text } from "native-base";
 import loginStyle from "../screens/login-screen/loginStyle";
+import { useAuth } from "../authentication/auth-context";
+import { getCurrentUser } from "../data/queries/user-queries";
 
 
 
@@ -14,6 +16,15 @@ import loginStyle from "../screens/login-screen/loginStyle";
 const AuthTopAppBar = () => {
   const insets = useSafeAreaInsets();
   const [modalVisible, setModalVisible] = useState(false);
+
+  const auth = useAuth()
+  const currentUser = getCurrentUser(); 
+
+  const handleLogout = async () => {
+    await auth.logout();
+    console.log(currentUser);
+      
+  };
 
   return(
     <View>
@@ -50,7 +61,10 @@ const AuthTopAppBar = () => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
            <Text style={styles.textStyle2}>Sign Out?</Text>
-           <Button style={[loginStyle.button, styles.buttonYes]}>
+           <Button 
+           style={[loginStyle.button, styles.buttonYes]}
+           onPress={()=> handleLogout()}
+           >
             <Text style={loginStyle.textStyle}>Yes</Text>
            </Button>
             <Button

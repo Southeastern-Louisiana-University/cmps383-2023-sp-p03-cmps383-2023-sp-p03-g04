@@ -50,6 +50,11 @@ interface LoginScreenProps{
           
       };
 
+      const handleLogout = async (username, password) => {
+        await auth.logout();
+          
+      };
+
       const[modalVisible, setModalVisible] = useState(false);
 
       function pressHandler(){
