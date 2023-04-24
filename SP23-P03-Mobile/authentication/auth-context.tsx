@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { User } from "../data/types/user-types";
 import { getCurrentUser } from "../data/queries/user-queries";
-import { Api } from "../Config";
+import { BaseUrl } from "../Config";
 
 type AuthContextValue = {
 	user: User | null;
@@ -46,13 +46,14 @@ export const AuthProvider = ({ children }: any) => {
 
 	async function login(username: string, password: string) {
 		try {
-			const { data, status } = await Api.post<User>(
+			const { data, status } = await BaseUrl.post<User>(
 				"/authentication/login",
 				{ username, password }
 			);
 
 			if (status === 200) {
 				setUser(data);
+				console.log(data);
 			} else {
 				throw Error;
 			}
@@ -63,7 +64,7 @@ export const AuthProvider = ({ children }: any) => {
 
 	async function register(inputData: Registration) {
 		try {
-			const { data, status } = await Api.post<User>("/users", inputData);
+			const { data, status } = await BaseUrl.post<User>("/users", inputData);
 
 			if (status === 200) {
 				setUser(data);
