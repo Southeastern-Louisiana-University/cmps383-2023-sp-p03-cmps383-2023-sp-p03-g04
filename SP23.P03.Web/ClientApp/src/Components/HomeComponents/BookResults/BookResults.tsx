@@ -3,9 +3,17 @@ import { Header } from "antd/es/layout/layout";
 import "./BookResults.css";
 import { TicketListItem } from "./TicketListItem";
 
+interface TicketRequestData {
+	ticketType: string;
+	from: string;
+	to: string;
+	passengers: number;
+	depart: string;
+	return: string;
+}
 interface BookingProps {
-	onSubmit: () => void;
 	setCurrentStep: (step: number) => void;
+	ticketData: TicketRequestData;
 }
 
 export const BookResults = (props: BookingProps) => {
@@ -40,7 +48,10 @@ export const BookResults = (props: BookingProps) => {
 				</h1>
 			</Header>
 			<Divider style={{ border: "1px solid black" }} />
-			<TicketListItem setCurrentStep={props.setCurrentStep} />
+			<TicketListItem
+				ticketData={props.ticketData}
+				setCurrentStep={props.setCurrentStep}
+			/>
 		</>
 	);
 };

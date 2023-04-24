@@ -2,10 +2,10 @@
     border: 15px solid rgb(0,33,64);
 }
 .menu-sider .ant-menu-item::after {
-    color: darkblue;
+    color: #5359d1;
 }
 .ant-layout-sider-trigger {
-    background: #3223d3 !important;
+    background: #5359d1 !important;
 }
 
 .menu-side {

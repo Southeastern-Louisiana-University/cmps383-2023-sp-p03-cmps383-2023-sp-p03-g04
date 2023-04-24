@@ -148,7 +148,7 @@ export const MenuSider = () => {
 						zIndex: 4,
 						height: 64,
 						margin: 0,
-						backgroundColor: "#3223d3",
+						backgroundColor: "#5359d1",
 						color: "white",
 						display: "flex",
 						fontWeight: "bold",

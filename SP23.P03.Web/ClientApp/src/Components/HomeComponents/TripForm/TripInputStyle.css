@@ -19,3 +19,14 @@
     row-gap: 0px;
 }
 
+.cancel-button {
+    width: 30%;
+    background: grey;
+    color: white;
+}
+
+.cancel-button:hover {
+    color:white !important;
+    background-color: lightslategray;
+    
+}

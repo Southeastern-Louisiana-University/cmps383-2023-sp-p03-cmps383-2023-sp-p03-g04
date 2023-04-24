@@ -2,6 +2,7 @@ import { List, Descriptions } from "antd";
 import React from "react";
 
 import "./TicketStyle.css";
+import { getCookie } from "../../../../Data/Cookies/CookieData";
 
 interface Props {
 	setCurrentStep: (step: number) => void;
@@ -14,7 +15,7 @@ export const OneWayTicket = (props: Props) => {
 		year: "numeric",
 	};
 	const fromDate = new Date(
-		sessionStorage.getItem("selected-from-date")!
+		getCookie("selected-from-date")!
 	).toLocaleDateString("en-US", dateOptions);
 	const labelStyle = {
 		background: "darkgrey",
@@ -41,13 +42,13 @@ export const OneWayTicket = (props: Props) => {
 									labelStyle={labelStyle}
 								>
 									<Descriptions.Item label="Start">
-										{sessionStorage.getItem("from-city")}
+										{getCookie("from-city")}
 									</Descriptions.Item>
 									<Descriptions.Item
 										label="Destination"
 										span={2}
 									>
-										{sessionStorage.getItem("to-city")}
+										{getCookie("to-city")}
 									</Descriptions.Item>
 									<Descriptions.Item label="Departure Time">
 										5:30 AM
