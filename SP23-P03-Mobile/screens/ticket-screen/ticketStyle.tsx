@@ -19,6 +19,7 @@ const ticketStyle=StyleSheet.create({
   },
   header: {
     fontSize: 24,
+    textAlign: 'center',
     fontWeight: "bold",
     marginBottom: 20,
     justifyContent: "center",

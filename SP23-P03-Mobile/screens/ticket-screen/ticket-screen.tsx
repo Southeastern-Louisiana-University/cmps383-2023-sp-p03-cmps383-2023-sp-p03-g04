@@ -1,6 +1,6 @@
 import { Text, SafeAreaView, ScrollView, View } from "react-native";
 import ticketStyle from "./ticketStyle";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Divider } from "@react-native-material/core";
 import { COLORS } from "../../constants";
